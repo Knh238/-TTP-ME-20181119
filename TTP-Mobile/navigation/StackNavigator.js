@@ -16,7 +16,21 @@ const StackNavigator = createStackNavigator(
           //   source={require("../assets/images/heart.png")}
           //   style={{ width: 10, height: 10 }}
           // />
-          <Icon name="heartbeat" type="font-awesome" color="royalblue" />
+          <Image
+            source={
+              __DEV__
+                ? require("../assets/images/twitter.png")
+                : require("../assets/images/twitter.png")
+            }
+            style={{
+              width: 80,
+              height: 60,
+              resizeMode: "contain",
+              marginTop: 3,
+              marginLeft: -10
+            }}
+          />
+          // <Icon name="heartbeat" type="font-awesome" color="royalblue" />
         ),
         headerTintColor: "#000000",
         headerBackTitle: null,

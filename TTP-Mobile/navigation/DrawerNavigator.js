@@ -64,10 +64,11 @@ class CustomDrawer extends Component {
         <Header style={{ height: 80 }}>
           <Body>
             <Icon
-              reverse
-              name="heartbeat"
+              //   reverse
+              size={55}
+              name="twitter-square"
               type="font-awesome"
-              color="royalblue"
+              color="#90CAF9"
               onPress={() => nav.navigate("Home")}
             />
           </Body>
@@ -89,15 +90,13 @@ class CustomDrawer extends Component {
                 onPress={() => nav.navigate("Links")}
               >
                 <Body>
-                  <Text style={{ fontFamily: "permanent-marker" }}>
-                    Profile
-                  </Text>
+                  <Text style={{ fontFamily: "playfair" }}>Profile</Text>
                 </Body>
                 <Right>
                   <Icon
                     name="user-circle"
                     type="font-awesome"
-                    color="royalblue"
+                    color="#2196F3"
                     size={28}
                     onPress={() => this.clickOne()}
                   />
@@ -116,18 +115,73 @@ class CustomDrawer extends Component {
                 </Body>
                 <Right>
                   <Icon
-                    //reverse
-                    // raised
-
-                    name="book-bookmark"
-                    type="foundation"
-                    color="royalblue"
+                    name="location"
+                    type="entypo"
+                    color="#2196F3"
                     size={35}
                     onPress={() => this.clickOne()}
                   />
+                  {/* <Text> new messages </Text> */}
                   {/* <Badge secondary>
-                      <Text style={{ fontFamily: "poppins" }}>6</Text>
+                      <Text style={{ fontFamily: "playfair" }}>6</Text>
                     </Badge> */}
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Body>
+                  <Text style={{ fontFamily: "playfair" }}> My Groups</Text>
+                </Body>
+                <Right>
+                  <Icon
+                    //reverse
+                    // raised
+
+                    name="group"
+                    type="font-awesome"
+                    color="#2196F3"
+                    size={35}
+                    onPress={() => this.clickOne()}
+                  />
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Body>
+                  <Text style={{ fontFamily: "playfair" }}>
+                    {" "}
+                    New Tweets in group
+                  </Text>
+                </Body>
+                <Right>
+                  <Badge warning>
+                    {/* //success is green
+                  //info is light blue 
+                  //primary is navy */}
+                    <Text
+                      style={{
+                        fontFamily: "playfair"
+                      }}
+                    >
+                      6
+                    </Text>
+                  </Badge>
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Body>
+                  <Text style={{ fontFamily: "playfair" }}>
+                    {" "}
+                    add new group{" "}
+                  </Text>
+                </Body>
+                <Right>
+                  <Icon
+                    // name="add-circle-outline"
+                    name="add-circle"
+                    type="materialicons"
+                    color="#2196F3"
+                    size={35}
+                    onPress={() => this.clickOne()}
+                  />
                 </Right>
               </ListItem>
             </List>

@@ -36,3 +36,10 @@ export default createBottomTabNavigator(
     }
   }
 );
+
+//other buttons-- trending
+//trending near me
+//friends
+//my most popular hashtags
+//add tweet
+//log in and log out
