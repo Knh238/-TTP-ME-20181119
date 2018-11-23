@@ -87,7 +87,7 @@ class CustomDrawer extends Component {
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
-                onPress={() => nav.navigate("Links")}
+                onPress={() => nav.navigate("Test")}
               >
                 <Body>
                   <Text style={{ fontFamily: "playfair" }}>Profile</Text>

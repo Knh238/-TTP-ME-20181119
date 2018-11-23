@@ -4,6 +4,7 @@ import { Icon } from "react-native-elements";
 import { createStackNavigator } from "react-navigation";
 import TabNavigator from "./TabNavigator";
 import HomeScreen from "../screens/HomeScreen";
+import TestScreen from "../screens/TestReq";
 //import Profile from "../screens/Profile";
 
 const StackNavigator = createStackNavigator(
@@ -54,6 +55,11 @@ const StackNavigator = createStackNavigator(
       screen: HomeScreen
       // headerRight: null,
       // tabBarVisible: true
+    },
+    Test: {
+      screen: TestScreen
+      // headerRight: null,
+      // appBarVisible: true
     }
     //   Profile: {
     //     screen: Profile
