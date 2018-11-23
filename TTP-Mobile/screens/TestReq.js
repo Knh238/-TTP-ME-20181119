@@ -112,6 +112,26 @@ export default class TestScreen extends React.Component {
               >
                 ps I also did a fullstack app...
               </Text>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "rgba(96,100,109, 1)",
+                  textAlign: "center",
+                  fontFamily: "playfair"
+                }}
+              >
+                trending info @ location
+              </Text>
+              <Text
+                style={{
+                  fontSize: 20,
+                  color: "rgba(96,100,109, 1)",
+                  textAlign: "center",
+                  fontFamily: "playfair"
+                }}
+              >
+                on -moment js today display
+              </Text>
               {/*     
               {this.state[0]
                 ? this.state.map(topic => (
