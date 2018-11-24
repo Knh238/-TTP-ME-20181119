@@ -24,7 +24,7 @@ import Header from "../secrets";
 //   header: null
 // };
 
-export default class TestScreen extends React.Component {
+export default class TweetsNearMeScreen extends React.Component {
   constructor() {
     super();
     this.state = {};
@@ -35,18 +35,37 @@ export default class TestScreen extends React.Component {
   //or just [ ] when u pass it to state like {Trends:[data[0]]}
   componentWillMount() {
     const self = this;
+    // return axios
+    //   .get("https://api.twitter.com/1.1/trends/place.json?id=2459115", {
+    //     headers: Header
+    //   })
+    //   .then(function(res) {
+    //     console.log("data is", res.data[0].trends);
+    //     self.setState(res.data[0].trends);
+    //   });
     return axios
-      .get("https://api.twitter.com/1.1/trends/place.json?id=2459115", {
-        headers: Header
-      })
+      .get(
+        "https://api.twitter.com/1.1/search/tweets.json?geocode=40.7268,-73.9910,5mi",
+        {
+          headers: Header
+        }
+      )
       .then(function(res) {
-        console.log("data is", res.data[0].trends);
-        self.setState(res.data[0].trends);
+        console.log(
+          "data is--------------------",
+          res.data.statuses[0].user.id_str
+        );
+        self.setState(res.data.statuses);
       });
+    // https://api.twitter.com/1.1/search/tweets.json
+    // ?q=nasa&result_type=popular
+    // /1.1/search/tweets.json?q=nasa&result_type=popular
+    // specified by ” latitude,longitude,radius “,
+    ///default count is 15
   }
 
   render() {
-    this.state ? console.log(this.state) : null;
+    this.state ? console.log("theres state!") : null;
     return (
       <View
         style={{
@@ -249,31 +268,3 @@ export default class TestScreen extends React.Component {
     );
   }
 }
-
-// var client = require("../twitterAPI");
-
-// // client.get("favorites/list", function(error, tweets, response) {
-// //   if (error) throw error;
-// //   console.log(tweets); // The favorites.
-// //   console.log(response); // Raw response object.
-// // });
-
-// var stream = client.stream("statuses/filter", { track: "javascript" });
-// stream.on("data", function(event) {
-//   console.log(event && event.text);
-// });
-
-// stream.on("error", function(error) {
-//   throw error;
-// });
-
-// // You can also get the stream in a callback if you prefer.
-// client.stream("statuses/filter", { track: "javascript" }, function(stream) {
-//   stream.on("data", function(event) {
-//     console.log(event && event.text);
-//   });
-
-//   stream.on("error", function(error) {
-//     throw error;
-//   });
-// })

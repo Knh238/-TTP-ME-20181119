@@ -4,7 +4,9 @@ import { Icon } from "react-native-elements";
 import { createStackNavigator } from "react-navigation";
 import TabNavigator from "./TabNavigator";
 import HomeScreen from "../screens/HomeScreen";
-import TestScreen from "../screens/TestReq";
+import TrendingNearbyScreen from "../screens/TrendingNearby";
+import TweetsNearMeScreen from "../screens/TweetsNearMe";
+import LocationScreen from "../screens/Location";
 //import Profile from "../screens/Profile";
 
 const StackNavigator = createStackNavigator(
@@ -56,8 +58,18 @@ const StackNavigator = createStackNavigator(
       // headerRight: null,
       // tabBarVisible: true
     },
-    Test: {
-      screen: TestScreen
+    TrendingNearby: {
+      screen: TrendingNearbyScreen
+      // headerRight: null,
+      // appBarVisible: true
+    },
+    TweetsNearMe: {
+      screen: TweetsNearMeScreen
+      // headerRight: null,
+      // appBarVisible: true
+    },
+    Location: {
+      screen: LocationScreen
       // headerRight: null,
       // appBarVisible: true
     }

@@ -87,10 +87,12 @@ class CustomDrawer extends Component {
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
-                onPress={() => nav.navigate("Test")}
+                onPress={() => nav.navigate("TrendingNearby")}
               >
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>Profile</Text>
+                  <Text style={{ fontFamily: "playfair" }}>
+                    Trending in my area
+                  </Text>
                 </Body>
                 <Right>
                   <Icon
@@ -107,10 +109,35 @@ class CustomDrawer extends Component {
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
-                onPress={() => nav.navigate("Schedule")}
+                onPress={() => nav.navigate("Location")}
               >
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>My Bookmarks</Text>
+                  <Text style={{ fontFamily: "playfair" }}>My Location</Text>
+                  {/* <Text style={{ fontFamily: "poppins" }}>Days left:</Text> */}
+                </Body>
+                <Right>
+                  <Icon
+                    name="location"
+                    type="entypo"
+                    color="#2196F3"
+                    size={35}
+                    onPress={() => this.clickOne()}
+                  />
+                  {/* <Text> new messages </Text> */}
+                  {/* <Badge secondary>
+                      <Text style={{ fontFamily: "playfair" }}>6</Text>
+                    </Badge> */}
+                </Right>
+              </ListItem>
+              <ListItem
+                style={{
+                  marginLeft: 0,
+                  paddingLeft: 10
+                }}
+                onPress={() => nav.navigate("TweetsNearMe")}
+              >
+                <Body>
+                  <Text style={{ fontFamily: "playfair" }}>Tweets Near Me</Text>
                   {/* <Text style={{ fontFamily: "poppins" }}>Days left:</Text> */}
                 </Body>
                 <Right>
