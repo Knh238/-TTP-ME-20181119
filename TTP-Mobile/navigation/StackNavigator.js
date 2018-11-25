@@ -10,6 +10,8 @@ import LocationScreen from "../screens/Location";
 //import Profile from "../screens/Profile";
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
+import CreateGroup from "../screens/CreateGroup";
+import GroupView from "../screens/GroupView";
 
 const StackNavigator = createStackNavigator(
   {
@@ -84,6 +86,12 @@ const StackNavigator = createStackNavigator(
       screen: LocationScreen
       // headerRight: null,
       // appBarVisible: true
+    },
+    CreateGroup: {
+      screen: CreateGroup
+    },
+    Group: {
+      screen: GroupView
     }
     //   Profile: {
     //     screen: Profile

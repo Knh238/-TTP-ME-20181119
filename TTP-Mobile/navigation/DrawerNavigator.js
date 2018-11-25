@@ -36,36 +36,27 @@ const logOut = function() {
     );
 };
 
-// const LogoutButton = props => {
-//   return firebase.auth().currentUser ? (
-//     <Footer
-//       style={{
-//         flexDirection: "column",
-//         height: 90
-//       }}
-//     >
-//       <Button
-//         full
-//         light
-//         onPress={() => props.navigation.navigate("Create")}
-//         style={{ borderColor: "#c0c0c0" }}
-//       >
-//         <Text style={{ fontFamily: "Oxygen" }}>Create Project</Text>
-//       </Button>
-//       <Divider style={{ backgroundColor: "#c0c0c0" }} />
-//       <Button
-//         full
-//         light
-//         onPress={() => {
-//           logOut();
-//           props.navigation.navigate("Login");
-//         }}
-//       >
-//         <Text style={{ fontFamily: "Oxygen" }}>LOGOUT</Text>
-//       </Button>
-//     </Footer>
-//   ) : null;
-// };
+const LogoutButton = props => {
+  return firebase.auth().currentUser ? (
+    <Footer
+      style={{
+        flexDirection: "column",
+        height: 90
+      }}
+    >
+      <Button
+        full
+        light
+        onPress={() => {
+          logOut();
+          props.navigation.navigate("Login");
+        }}
+      >
+        <Text style={{ fontFamily: "oxygen" }}>LOGOUT</Text>
+      </Button>
+    </Footer>
+  ) : null;
+};
 
 class CustomDrawer extends Component {
   constructor() {
@@ -74,8 +65,6 @@ class CustomDrawer extends Component {
       showOne: false,
       groups: []
     };
-    this.clickOne = this.clickOne.bind(this);
-    this.clickOne = this.clickOne.bind(this);
     this.clickOne = this.clickOne.bind(this);
   }
 
@@ -87,39 +76,32 @@ class CustomDrawer extends Component {
     }
   }
   componentDidMount() {
-    // const self = this;
-    // let groupProjects;
-    // let userProjects;
-    // firebase.auth().onAuthStateChanged(async function(user) {
-    //   if (user) {
-    //     const projects = await firebase
-    //       .database()
-    //       .ref("projects")
-    //       .once("value")
-    //       .then(snap => snap.val());
-    //     groupProjects = [];
-    //     userProjects = [];
-    //     for (let key in projects) {
-    //       if (projects[key].members) {
-    //         const members = projects[key].members;
-    //         const name = projects[key].name;
-    //         const color = projects[key].color;
-    //         if (members.includes(user.email) && members.length > 1) {
-    //           groupProjects.push({ name, key, color, members });
-    //         } else if (members[0] === user.email) {
-    //           userProjects.push({ name, key, color, members });
-    //         }
-    //       }
-    //     }
-    //     self.setState({
-    //       groups: groupProjects
-    //     });
-    //   }
-    // });
+    const self = this;
+    let userGroups;
+    // let user=auth().currentUser
+    firebase.auth().onAuthStateChanged(async function(user) {
+      if (user) {
+        const currUser = user.uid;
+        //console.log("current user groups", currUser);
+        const groups = await firebase
+          .database()
+          .ref(`users/${currUser}/groups`)
+          .once("value")
+          .then(snap => snap.val());
+
+        //console.log("this user group before setting state", groups);
+        self.setState({
+          groups
+        });
+      } else {
+        console.log("no groups");
+      }
+    });
   }
 
   render() {
     const nav = this.props.navigation;
+    console.log("this state in drawer is------", this.state);
     return (
       <Container>
         <Header style={{ height: 80 }}>
@@ -308,7 +290,7 @@ class CustomDrawer extends Component {
                     // type="feather"
                     color="#2196F3"
                     size={28}
-                    onPress={() => this.clickOne()}
+                    onPress={() => logout()}
                   />
                 </Right>
               </ListItem>
@@ -353,7 +335,7 @@ class CustomDrawer extends Component {
             </List>
           </ScrollView>
         </Content>
-        {/* <LogoutButton navigation={nav} /> */}
+        <LogoutButton navigation={nav} />
       </Container>
     );
   }
