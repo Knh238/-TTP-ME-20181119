@@ -64,30 +64,37 @@ export default class TweetsNearMeScreen extends React.Component {
     ///default count is 15
   }
 
+  //add a force update thing
+  //refresh button or gesture on scroll end or something
+  //unclear if refreshing bc location change---so lets assume its just a time issue
+  //maybe onpress= this.state.change or will recieved props etc
+  //component will update
+
   render() {
     this.state ? console.log("theres state!") : null;
     return (
       <View
         style={{
-          //   flex: 1,
-          backgroundColor: "#fff"
+          //   flexDirection: "column",
+          //   padding: 20,
+          flex: 1,
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
-        <ScrollView
-        //   style={{
-        //     flex: 1,
-        //     backgroundColor: "#fff"
-        //   }}
-        //   contentContainerStyle={{
-        //     padding: 10
-        //   }}
+        <LinearGradient
+          // colors={["#90CAF9", "#2196F3", "#1976D2"]}
+          colors={["powderblue", "lightblue", "#2196F3"]}
+          fill
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "100%"
+          }}
         >
-          <LinearGradient
-            // colors={["#90CAF9", "#2196F3", "#1976D2"]}
-            colors={["powderblue", "lightblue", "#2196F3"]}
-            fill
-            style={{ marginBottom: 2 }}
-          >
+          <ScrollView>
             <View
               style={{
                 alignItems: "center"
@@ -180,6 +187,7 @@ export default class TweetsNearMeScreen extends React.Component {
                       }}
                     >
                       1. {this.state[0].name}
+                      text of tweet screename, profile photo, and created time
                     </Text>
                   </ListItem>
                   <ListItem>
@@ -249,8 +257,8 @@ export default class TweetsNearMeScreen extends React.Component {
                 </Text>
               </TouchableOpacity> */}
             </View>
-          </LinearGradient>
-        </ScrollView>
+          </ScrollView>
+        </LinearGradient>
       </View>
     );
   }

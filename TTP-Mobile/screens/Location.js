@@ -51,7 +51,7 @@ export default class LocationScreen extends Component {
       //     this.state.location.coords.latitude
       //   );
     }
-
+    //if location cant be found. or no permission given. base it on ip addrss
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}> My current location is:</Text>

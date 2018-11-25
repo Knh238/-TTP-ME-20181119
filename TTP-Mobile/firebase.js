@@ -1,5 +1,6 @@
-import config from "./secrets";
 var firebase = require("firebase");
-// var firebaseui = require("firebaseui");
+const config = require("./secrets");
 
 firebase.initializeApp(config);
+
+export default firebase;

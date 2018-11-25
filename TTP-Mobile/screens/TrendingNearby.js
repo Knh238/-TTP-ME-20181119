@@ -69,11 +69,14 @@ export default class TrendingNearbyScreen extends React.Component {
     return (
       <View
         style={{
-          //   flex: 1,
-          backgroundColor: "#fff"
+          //   flexDirection: "column",
+          //   padding: 20,
+          flex: 1,
+          justifyContent: "center",
+          alignContent: "center"
         }}
       >
-        <ScrollView
+        {/* <ScrollView
         //   style={{
         //     flex: 1,
         //     backgroundColor: "#fff"
@@ -81,13 +84,22 @@ export default class TrendingNearbyScreen extends React.Component {
         //   contentContainerStyle={{
         //     padding: 10
         //   }}
+        > */}
+        <LinearGradient
+          // colors={["#90CAF9", "#2196F3", "#1976D2"]}
+          colors={["powderblue", "lightblue", "#2196F3"]}
+          // fill
+          // style={{ marginBottom: 2 }}
+          fill
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: "100%"
+          }}
         >
-          <LinearGradient
-            // colors={["#90CAF9", "#2196F3", "#1976D2"]}
-            colors={["powderblue", "lightblue", "#2196F3"]}
-            fill
-            style={{ marginBottom: 2 }}
-          >
+          <ScrollView>
             <View
               style={{
                 alignItems: "center"
@@ -248,8 +260,9 @@ export default class TrendingNearbyScreen extends React.Component {
                 </Text>
               </TouchableOpacity> */}
             </View>
-          </LinearGradient>
-        </ScrollView>
+          </ScrollView>
+        </LinearGradient>
+        {/* </ScrollView> */}
       </View>
     );
   }
