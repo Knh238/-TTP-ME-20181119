@@ -110,8 +110,7 @@ export default class Login extends Component {
                 width: "33%"
               }}
               icon={{ name: "home", type: "font-awesome" }}
-
-              // onPress={() => nav.navigate("Home")}
+              onPress={() => nav.navigate("Home")}
             />
           </Card>
         </LinearGradient>

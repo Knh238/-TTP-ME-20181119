@@ -20,15 +20,59 @@ import {
 import { Avatar, Divider, Icon } from "react-native-elements";
 import StackNavigator from "./StackNavigator";
 import HomeScreen from "../screens/HomeScreen";
+import firebase from "../firebase";
 // import Login from "../screens/Login";
+const logOut = function() {
+  firebase
+    .auth()
+    .signOut()
+    .then(
+      function() {
+        console.log("Sign out complete.");
+      },
+      function(error) {
+        console.error(error);
+      }
+    );
+};
+
+// const LogoutButton = props => {
+//   return firebase.auth().currentUser ? (
+//     <Footer
+//       style={{
+//         flexDirection: "column",
+//         height: 90
+//       }}
+//     >
+//       <Button
+//         full
+//         light
+//         onPress={() => props.navigation.navigate("Create")}
+//         style={{ borderColor: "#c0c0c0" }}
+//       >
+//         <Text style={{ fontFamily: "Oxygen" }}>Create Project</Text>
+//       </Button>
+//       <Divider style={{ backgroundColor: "#c0c0c0" }} />
+//       <Button
+//         full
+//         light
+//         onPress={() => {
+//           logOut();
+//           props.navigation.navigate("Login");
+//         }}
+//       >
+//         <Text style={{ fontFamily: "Oxygen" }}>LOGOUT</Text>
+//       </Button>
+//     </Footer>
+//   ) : null;
+// };
 
 class CustomDrawer extends Component {
   constructor() {
     super();
     this.state = {
       showOne: false,
-      showTwo: false,
-      showThree: false
+      groups: []
     };
     this.clickOne = this.clickOne.bind(this);
     this.clickOne = this.clickOne.bind(this);
@@ -42,19 +86,36 @@ class CustomDrawer extends Component {
       this.setState({ showOne: false });
     }
   }
-  clickTwo() {
-    if (!this.state.showTwo) {
-      this.setState({ showTwo: true });
-    } else {
-      this.setState({ showTwo: false });
-    }
-  }
-  clickThree() {
-    if (!this.state.showThree) {
-      this.setState({ showThree: true });
-    } else {
-      this.setState({ showThree: false });
-    }
+  componentDidMount() {
+    // const self = this;
+    // let groupProjects;
+    // let userProjects;
+    // firebase.auth().onAuthStateChanged(async function(user) {
+    //   if (user) {
+    //     const projects = await firebase
+    //       .database()
+    //       .ref("projects")
+    //       .once("value")
+    //       .then(snap => snap.val());
+    //     groupProjects = [];
+    //     userProjects = [];
+    //     for (let key in projects) {
+    //       if (projects[key].members) {
+    //         const members = projects[key].members;
+    //         const name = projects[key].name;
+    //         const color = projects[key].color;
+    //         if (members.includes(user.email) && members.length > 1) {
+    //           groupProjects.push({ name, key, color, members });
+    //         } else if (members[0] === user.email) {
+    //           userProjects.push({ name, key, color, members });
+    //         }
+    //       }
+    //     }
+    //     self.setState({
+    //       groups: groupProjects
+    //     });
+    //   }
+    // });
   }
 
   render() {
@@ -251,6 +312,44 @@ class CustomDrawer extends Component {
                   />
                 </Right>
               </ListItem>
+              {/* {this.state.groups
+                ? this.state.groups.map(project => {
+                    return (
+                      <ListItem
+                        key={project.key}
+                        title={project.name}
+                        style={{
+                          marginLeft: 0,
+                          paddingLeft: 10
+                        }}
+                        container={{
+                          flex: 1
+                        }}
+                        onPress={() =>
+                          nav.navigate("ProjectHome", {
+                            project: project
+                          })
+                        }
+                      >
+                        {" "}
+                        <Avatar
+                          rounded
+                          icon={{ name: "user", type: "font-awesome" }}
+                          size="xsmall"
+                          containerStyle={{
+                            marginRight: 20
+                          }}
+                          overlayContainerStyle={{
+                            backgroundColor: `#${project.color}`
+                          }}
+                        />
+                        <Text style={{ fontFamily: "Oxygen" }}>
+                          {project.name}
+                        </Text>
+                      </ListItem>
+                    );
+                  })
+                : null} */}
             </List>
           </ScrollView>
         </Content>

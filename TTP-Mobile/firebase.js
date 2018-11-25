@@ -1,6 +1,6 @@
 var firebase = require("firebase");
-const config = require("./secrets");
+const config = require("./secretsDb");
 
-firebase.initializeApp(config);
+export const mobileApp = firebase.initializeApp(config);
 
 export default firebase;
