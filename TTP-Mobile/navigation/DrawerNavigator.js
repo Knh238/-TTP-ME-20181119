@@ -21,6 +21,7 @@ import { Avatar, Divider, Icon } from "react-native-elements";
 import StackNavigator from "./StackNavigator";
 import HomeScreen from "../screens/HomeScreen";
 import firebase from "../firebase";
+import GroupView from "../screens/GroupView";
 // import Login from "../screens/Login";
 const logOut = function() {
   firebase
@@ -51,8 +52,22 @@ const LogoutButton = props => {
           logOut();
           props.navigation.navigate("Login");
         }}
+        // style={{
+        //   backgroundColor: "white",
+        //   borderWidth: 0,
+        //   borderRadius: 30,
+        //   alignSelf: "center",
+        //   width: "33%",
+        //   marginTop: 10
+        // }}
       >
-        <Text style={{ fontFamily: "oxygen" }}>LOGOUT</Text>
+        <Text style={{ fontFamily: "oxygen" }}>Logout</Text>
+        <Icon
+          name="exit-to-app"
+          type="material-icons"
+          color="#2196F3"
+          size={28}
+        />
       </Button>
     </Footer>
   ) : null;
@@ -62,19 +77,10 @@ class CustomDrawer extends Component {
   constructor() {
     super();
     this.state = {
-      showOne: false,
       groups: []
     };
-    this.clickOne = this.clickOne.bind(this);
   }
 
-  clickOne() {
-    if (!this.state.showOne) {
-      this.setState({ showOne: true });
-    } else {
-      this.setState({ showOne: false });
-    }
-  }
   componentDidMount() {
     const self = this;
     let userGroups;
@@ -82,7 +88,7 @@ class CustomDrawer extends Component {
     firebase.auth().onAuthStateChanged(async function(user) {
       if (user) {
         const currUser = user.uid;
-        //console.log("current user groups", currUser);
+        // console.log("current user uid", user.);
         const groups = await firebase
           .database()
           .ref(`users/${currUser}/groups`)
@@ -101,7 +107,7 @@ class CustomDrawer extends Component {
 
   render() {
     const nav = this.props.navigation;
-    console.log("this state in drawer is------", this.state);
+    //console.log("this state in drawer is------", this.state);
     return (
       <Container>
         <Header style={{ height: 80 }}>
@@ -141,7 +147,6 @@ class CustomDrawer extends Component {
                     type="font-awesome"
                     color="#2196F3"
                     size={28}
-                    onPress={() => this.clickOne()}
                   />
                 </Right>
               </ListItem>
@@ -155,7 +160,6 @@ class CustomDrawer extends Component {
               >
                 <Body>
                   <Text style={{ fontFamily: "oxygen" }}>My Location</Text>
-                  {/* <Text style={{ fontFamily: "poppins" }}>Days left:</Text> */}
                 </Body>
                 <Right>
                   <Icon
@@ -163,12 +167,7 @@ class CustomDrawer extends Component {
                     type="entypo"
                     color="#2196F3"
                     size={35}
-                    onPress={() => this.clickOne()}
                   />
-                  {/* <Text> new messages </Text> */}
-                  {/* <Badge secondary>
-                      <Text style={{ fontFamily: "playfair" }}>6</Text>
-                    </Badge> */}
                 </Right>
               </ListItem>
               <ListItem
@@ -189,7 +188,6 @@ class CustomDrawer extends Component {
                     type="material-icons"
                     color="#2196F3"
                     size={28}
-                    onPress={() => this.clickOne()}
                   />
                 </Right>
               </ListItem>
@@ -202,7 +200,6 @@ class CustomDrawer extends Component {
               >
                 <Body>
                   <Text style={{ fontFamily: "oxygen" }}>Tweets Near Me</Text>
-                  {/* <Text style={{ fontFamily: "poppins" }}>Days left:</Text> */}
                 </Body>
                 <Right>
                   <Icon
@@ -210,65 +207,6 @@ class CustomDrawer extends Component {
                     type="material-icons"
                     color="#2196F3"
                     size={35}
-                    onPress={() => this.clickOne()}
-                  />
-                  {/* <Text> new messages </Text> */}
-                  {/* <Badge secondary>
-                      <Text style={{ fontFamily: "playfair" }}>6</Text>
-                    </Badge> */}
-                </Right>
-              </ListItem>
-              <ListItem>
-                <Body>
-                  <Text style={{ fontFamily: "oxygen" }}> My Groups</Text>
-                </Body>
-                <Right>
-                  <Icon
-                    //reverse
-                    // raised
-
-                    name="group"
-                    type="font-awesome"
-                    color="#2196F3"
-                    size={35}
-                    onPress={() => this.clickOne()}
-                  />
-                </Right>
-              </ListItem>
-              <ListItem>
-                <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>
-                    {" "}
-                    New Tweets in group
-                  </Text>
-                </Body>
-                <Right>
-                  <Badge warning>
-                    {/* //success is green
-                  //info is light blue 
-                  //primary is navy */}
-                    <Text
-                      style={{
-                        fontFamily: "oxygen"
-                      }}
-                    >
-                      6
-                    </Text>
-                  </Badge>
-                </Right>
-              </ListItem>
-              <ListItem>
-                <Body>
-                  <Text style={{ fontFamily: "oxygen" }}> add new group </Text>
-                </Body>
-                <Right>
-                  <Icon
-                    // name="add-circle-outline"
-                    name="add-circle"
-                    type="materialicons"
-                    color="#2196F3"
-                    size={35}
-                    onPress={() => this.clickOne()}
                   />
                 </Right>
               </ListItem>
@@ -277,61 +215,70 @@ class CustomDrawer extends Component {
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
-                onPress={() => nav.navigate("TrendingNearby")}
+                onPress={() =>
+                  nav.navigate("Settings", {
+                    groups: this.state.groups
+                  })
+                }
               >
                 <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>Logout</Text>
+                  <Text style={{ fontFamily: "oxygen" }}>My Groups</Text>
                 </Body>
                 <Right>
                   <Icon
-                    name="exit-to-app"
+                    name="settings"
                     type="material-icons"
-                    // name="log-out"
-                    // type="feather"
                     color="#2196F3"
-                    size={28}
-                    onPress={() => logout()}
+                    size={35}
                   />
                 </Right>
               </ListItem>
-              {/* {this.state.groups
-                ? this.state.groups.map(project => {
+
+              {this.state.groups
+                ? this.state.groups.map(group => {
+                    // let hashtag = "#" + group;
                     return (
                       <ListItem
-                        key={project.key}
-                        title={project.name}
+                        key={group}
+                        title={group}
                         style={{
-                          marginLeft: 0,
+                          marginLeft: 10,
                           paddingLeft: 10
                         }}
                         container={{
                           flex: 1
                         }}
                         onPress={() =>
-                          nav.navigate("ProjectHome", {
-                            project: project
+                          nav.navigate("GroupView", {
+                            group
                           })
                         }
                       >
-                        {" "}
-                        <Avatar
-                          rounded
-                          icon={{ name: "user", type: "font-awesome" }}
-                          size="xsmall"
-                          containerStyle={{
-                            marginRight: 20
-                          }}
-                          overlayContainerStyle={{
-                            backgroundColor: `#${project.color}`
-                          }}
+                        <Icon
+                          name="hashtag"
+                          type="font-awesome"
+                          color="#2196F3"
+                          size={25}
                         />
-                        <Text style={{ fontFamily: "Oxygen" }}>
-                          {project.name}
-                        </Text>
+                        <Text style={{ fontFamily: "oxygen" }}>{group}</Text>
                       </ListItem>
                     );
                   })
-                : null} */}
+                : null}
+
+              <ListItem>
+                <Icon
+                  // name="add-circle-outline"
+                  name="add-circle"
+                  type="materialicons"
+                  color="#2196F3"
+                  size={35}
+                />
+
+                <Body>
+                  <Text style={{ fontFamily: "oxygen" }}>Add new group </Text>
+                </Body>
+              </ListItem>
             </List>
           </ScrollView>
         </Content>
@@ -342,8 +289,8 @@ class CustomDrawer extends Component {
 }
 const DrawerNavigator = createDrawerNavigator(
   {
-    Home: StackNavigator
-    //Profile: Profile,
+    Home: StackNavigator,
+    GroupView: GroupView
   },
   {
     initialRouteName: "Home",
@@ -352,3 +299,27 @@ const DrawerNavigator = createDrawerNavigator(
   }
 );
 export default DrawerNavigator;
+
+/* <ListItem>
+                <Body>
+                  <Text style={{ fontFamily: "oxygen" }}>
+                    {" "}
+                    New Tweets in group
+                  </Text>
+                </Body>
+                <Right>
+                  <Badge warning>
+                    {/* //success is green
+                  //info is light blue 
+                  //primary is navy */
+
+//       <Text
+//         style={{
+//           fontFamily: "oxygen"
+//         }}
+//       >
+//         6
+//       </Text>
+//     </Badge>
+//   </Right>
+// </ListItem> */}

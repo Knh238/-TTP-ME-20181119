@@ -83,8 +83,8 @@ export default class TweetsNearMeScreen extends React.Component {
         }}
       >
         <LinearGradient
-          // colors={["#90CAF9", "#2196F3", "#1976D2"]}
-          colors={["powderblue", "lightblue", "#2196F3"]}
+          colors={["powderblue", "lightblue", "#90caf9"]}
+          // colors={["powderblue", "lightblue", "#2196F3"]}
           fill
           style={{
             position: "absolute",

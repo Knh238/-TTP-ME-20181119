@@ -17,16 +17,23 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
+  // Text,
   TouchableOpacity,
   View
 } from "react-native";
 
-import { List, ListItem, Left, Right, Badge } from "native-base";
-import { Button } from "react-native-elements";
+import {
+  List,
+  ListItem,
+  Left,
+  Body,
+  Right,
+  Thumbnail,
+  Text
+} from "native-base";
+import { Button, Icon } from "react-native-elements";
 import LottieView from "lottie-react-native";
 // import Icon from "react-native-vector-icons/FontAwesome";
-import { Icon } from "expo";
 
 import { WebBrowser } from "expo";
 import { LinearGradient } from "expo";
@@ -38,9 +45,9 @@ import Header from "../secrets";
 // };
 
 export default class GroupView extends React.Component {
-  constructor() {
-    super();
-    this.state = {};
+  constructor(props) {
+    super(props);
+    this.state = { tweets: [] };
   }
 
   //later seperate this out to grab location as a seperate property
@@ -48,33 +55,23 @@ export default class GroupView extends React.Component {
   //or just [ ] when u pass it to state like {Trends:[data[0]]}
   componentWillMount() {
     const self = this;
-    // return axios
-    //   .get("https://api.twitter.com/1.1/trends/place.json?id=2459115", {
-    //     headers: Header
-    //   })
-    //   .then(function(res) {
-    //     console.log("data is", res.data[0].trends);
-    //     self.setState(res.data[0].trends);
-    //   });
+    const group = this.props.navigation.state.params.group;
+
     return axios
       .get(
-        "https://api.twitter.com/1.1/search/tweets.json?geocode=40.7268,-73.9910,5mi",
+        `https://api.twitter.com/1.1/search/tweets.json?q=${group}&lang=en`,
         {
           headers: Header
         }
       )
       .then(function(res) {
-        console.log(
-          "data is--------------------",
-          res.data.statuses[0].user.id_str
-        );
-        self.setState(res.data.statuses);
+        console.log("data is--------------------", res.data.statuses);
+        // console.log(
+        //   "data is--------------------",
+        //   res.data.statuses[0].user.id_str
+        // );
+        self.setState({ tweets: res.data.statuses });
       });
-    // https://api.twitter.com/1.1/search/tweets.json
-    // ?q=nasa&result_type=popular
-    // /1.1/search/tweets.json?q=nasa&result_type=popular
-    // specified by ” latitude,longitude,radius “,
-    ///default count is 15
   }
 
   //add a force update thing
@@ -85,6 +82,8 @@ export default class GroupView extends React.Component {
 
   render() {
     this.state ? console.log("theres state!") : null;
+    const hashtag = this.props.navigation.state.params.group;
+    console.log("this props in the redner of group view----------", hashtag);
     return (
       <View
         style={{
@@ -97,7 +96,8 @@ export default class GroupView extends React.Component {
       >
         <LinearGradient
           // colors={["#90CAF9", "#2196F3", "#1976D2"]}
-          colors={["powderblue", "lightblue", "#2196F3"]}
+          // colors={["powderblue", "lightblue", "#64b5f6"]}
+          colors={["powderblue", "lightblue", "#90caf9"]}
           fill
           style={{
             position: "absolute",
@@ -108,14 +108,14 @@ export default class GroupView extends React.Component {
           }}
         >
           <ScrollView>
-            <View
+            {/* <View
               style={{
                 alignItems: "center"
                 // marginTop: 10,
                 // marginBottom: 10
               }}
-            >
-              <Image
+            > */}
+            {/* <Image
                 source={
                   __DEV__
                     ? require("../assets/images/twitter.png")
@@ -129,146 +129,94 @@ export default class GroupView extends React.Component {
                   marginLeft: -10
                 }}
               />
-            </View>
+            </View> */}
             <View>
               <Text
                 style={{
                   fontSize: 25,
-                  // color: "rgba(96,100,109, 1)",
+                  //color: "rgba(96,100,109, 1)",
                   color: "white",
                   textAlign: "center",
                   fontFamily: "abril"
                 }}
               >
-                Kristin's Mobile App Build for TTP
+                Popular Tweets About
               </Text>
-              <Text
+              <View
                 style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril"
+                  alignItems: "center"
+                  // marginTop: 10,
+                  // marginBottom: 10
                 }}
               >
-                ps I also did a fullstack app...
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril"
-                }}
-              >
-                trending info @ location
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril"
-                }}
-              >
-                on -moment js today display
-              </Text>
-              {/*     
-              {this.state[0]
-                ? this.state.map(topic => (
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      {topic.name}
-                    </Text>
-                  ))
-                : null} */}
-
-              {this.state[0] ? (
-                <List>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      1. {this.state[0].name}
-                      text of tweet screename, profile photo, and created time
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      2.{this.state[1].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 17,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      3. {this.state[2].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      4. {this.state[3].name}
-                    </Text>
-                  </ListItem>
-                </List>
-              ) : null}
-
-              {/* <LottieView
-                source={require("../assets/images/twitter_icon.json")}
-                autoPlay
-                loop
-                style={{
-                  alignContent: "center",
-                  position: "relative"
-                }}
-              /> */}
-
-              {/* <TouchableOpacity
-                onPress={this._handleHelpPress}
-                style={{
-                  paddingVertical: 15
-                }}
-              >
-                <Text
+                <Image
+                  source={
+                    __DEV__
+                      ? require("../assets/images/twitter.png")
+                      : require("../assets/images/twitter.png")
+                  }
                   style={{
-                    fontSize: 15,
-                    color: "#1565C0",
-                    textAlign: "center"
-                    // fontFamily: "playfairBold"
+                    width: 80,
+                    height: 60,
+                    resizeMode: "contain",
+                    marginTop: 3,
+                    marginLeft: -10
                   }}
-                >
-                  buzzfeed
-                </Text>
-              </TouchableOpacity> */}
+                />
+              </View>
+              <Text
+                style={{
+                  fontSize: 30,
+                  //color: "rgba(96,100,109, 1)",
+                  color: "white",
+                  textAlign: "center",
+                  fontFamily: "abril"
+                }}
+              >
+                # {hashtag}
+              </Text>
+              <List>
+                {this.state.tweets
+                  ? this.state.tweets.map(msg => (
+                      <ListItem avatar key={msg.id}>
+                        <Left>
+                          <Thumbnail
+                            source={{
+                              uri: `${msg.user.profile_image_url}`
+                            }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              color: "rgba(96,100,109, 1)",
+                              textAlign: "center",
+                              fontFamily: "abril"
+                            }}
+                          >
+                            {msg.user.name}@{msg.user.screen_name}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              color: "rgba(96,100,109, 1)",
+                              textAlign: "center",
+                              fontFamily: "oxygen"
+                            }}
+                          >
+                            {msg.text}
+                          </Text>
+                        </Body>
+                        <Right>
+                          <Text note fontFamily="sedgwick">
+                            {msg.created_at.slice(0, 16)}{" "}
+                          </Text>
+                        </Right>
+                      </ListItem>
+                    ))
+                  : null}
+              </List>
             </View>
           </ScrollView>
         </LinearGradient>
@@ -276,3 +224,36 @@ export default class GroupView extends React.Component {
     );
   }
 }
+
+/* <ListItem avatar>
+                    <Left>
+                      <Thumbnail
+                        source={{
+                          uri: `${this.state.tweets[0].user.profile_image_url}`
+                        }}
+                      />
+                    </Left>
+                    <Body>
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          color: "rgba(96,100,109, 1)",
+                          textAlign: "center",
+                          fontFamily: "oxygen"
+                        }}
+                      >
+                        {this.state.tweets[0].user.name}@
+                        {this.state.tweets[0].user.screen_name}
+                        {"\n"}
+                        {this.state.tweets[0].created_at.slice(0, 19)}
+                        {"\n"}
+                        {this.state.tweets[0].text}
+                        {"\n"}
+                      </Text>
+                    </Body>
+                    <Right>
+                      <Text note>
+                        {this.state.tweets[0].created_at.slice(0, 19)}{" "}
+                      </Text>
+                    </Right>
+                  </ListItem> */

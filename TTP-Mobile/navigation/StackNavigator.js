@@ -12,6 +12,7 @@ import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 import CreateGroup from "../screens/CreateGroup";
 import GroupView from "../screens/GroupView";
+import SettingsScreen from "../screens/Settings";
 
 const StackNavigator = createStackNavigator(
   {
@@ -74,24 +75,21 @@ const StackNavigator = createStackNavigator(
     },
     TrendingNearby: {
       screen: TrendingNearbyScreen
-      // headerRight: null,
-      // appBarVisible: true
     },
     TweetsNearMe: {
       screen: TweetsNearMeScreen
-      // headerRight: null,
-      // appBarVisible: true
     },
     Location: {
       screen: LocationScreen
-      // headerRight: null,
-      // appBarVisible: true
     },
     CreateGroup: {
       screen: CreateGroup
     },
-    Group: {
+    GroupView: {
       screen: GroupView
+    },
+    Settings: {
+      screen: SettingsScreen
     }
     //   Profile: {
     //     screen: Profile
