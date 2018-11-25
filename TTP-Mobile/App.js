@@ -42,8 +42,10 @@ export default class App extends Component {
         ...Icon.Ionicons.font,
         "permanent-marker": require("./assets/fonts/PermanentMarker-Regular.ttf"),
         Roboto: require("./assets/fonts/Roboto-Regular.ttf"),
-        playfair: require("./assets/fonts/PlayfairDisplay-Regular.ttf")
-        // poppins: require("./assets/fonts/Poppins-Regular.ttf")
+        playfair: require("./assets/fonts/PlayfairDisplay-Regular.ttf"),
+        abril: require("./assets/fonts/AbrilFatface-Regular.ttf"),
+        oxygen: require("./assets/fonts/Oxygen-Regular.ttf"),
+        sedgwick: require("./assets/fonts/SedgwickAve-Regular.ttf")
       })
     ]);
   };

@@ -90,9 +90,7 @@ class CustomDrawer extends Component {
                 onPress={() => nav.navigate("TrendingNearby")}
               >
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>
-                    Trending in my area
-                  </Text>
+                  <Text style={{ fontFamily: "oxygen" }}>Settings</Text>
                 </Body>
                 <Right>
                   <Icon
@@ -104,6 +102,7 @@ class CustomDrawer extends Component {
                   />
                 </Right>
               </ListItem>
+
               <ListItem
                 style={{
                   marginLeft: 0,
@@ -112,7 +111,7 @@ class CustomDrawer extends Component {
                 onPress={() => nav.navigate("Location")}
               >
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>My Location</Text>
+                  <Text style={{ fontFamily: "oxygen" }}>My Location</Text>
                   {/* <Text style={{ fontFamily: "poppins" }}>Days left:</Text> */}
                 </Body>
                 <Right>
@@ -134,16 +133,38 @@ class CustomDrawer extends Component {
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
+                onPress={() => nav.navigate("TrendingNearby")}
+              >
+                <Body>
+                  <Text style={{ fontFamily: "oxygen" }}>
+                    Trending in my area
+                  </Text>
+                </Body>
+                <Right>
+                  <Icon
+                    name="trending-up"
+                    type="material-icons"
+                    color="#2196F3"
+                    size={28}
+                    onPress={() => this.clickOne()}
+                  />
+                </Right>
+              </ListItem>
+              <ListItem
+                style={{
+                  marginLeft: 0,
+                  paddingLeft: 10
+                }}
                 onPress={() => nav.navigate("TweetsNearMe")}
               >
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>Tweets Near Me</Text>
+                  <Text style={{ fontFamily: "oxygen" }}>Tweets Near Me</Text>
                   {/* <Text style={{ fontFamily: "poppins" }}>Days left:</Text> */}
                 </Body>
                 <Right>
                   <Icon
-                    name="location"
-                    type="entypo"
+                    name="near-me"
+                    type="material-icons"
                     color="#2196F3"
                     size={35}
                     onPress={() => this.clickOne()}
@@ -156,7 +177,7 @@ class CustomDrawer extends Component {
               </ListItem>
               <ListItem>
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}> My Groups</Text>
+                  <Text style={{ fontFamily: "oxygen" }}> My Groups</Text>
                 </Body>
                 <Right>
                   <Icon
@@ -173,7 +194,7 @@ class CustomDrawer extends Component {
               </ListItem>
               <ListItem>
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>
+                  <Text style={{ fontFamily: "oxygen" }}>
                     {" "}
                     New Tweets in group
                   </Text>
@@ -185,7 +206,7 @@ class CustomDrawer extends Component {
                   //primary is navy */}
                     <Text
                       style={{
-                        fontFamily: "playfair"
+                        fontFamily: "oxygen"
                       }}
                     >
                       6
@@ -195,10 +216,7 @@ class CustomDrawer extends Component {
               </ListItem>
               <ListItem>
                 <Body>
-                  <Text style={{ fontFamily: "playfair" }}>
-                    {" "}
-                    add new group{" "}
-                  </Text>
+                  <Text style={{ fontFamily: "oxygen" }}> add new group </Text>
                 </Body>
                 <Right>
                   <Icon
@@ -207,6 +225,28 @@ class CustomDrawer extends Component {
                     type="materialicons"
                     color="#2196F3"
                     size={35}
+                    onPress={() => this.clickOne()}
+                  />
+                </Right>
+              </ListItem>
+              <ListItem
+                style={{
+                  marginLeft: 0,
+                  paddingLeft: 10
+                }}
+                onPress={() => nav.navigate("TrendingNearby")}
+              >
+                <Body>
+                  <Text style={{ fontFamily: "oxygen" }}>Logout</Text>
+                </Body>
+                <Right>
+                  <Icon
+                    name="exit-to-app"
+                    type="material-icons"
+                    // name="log-out"
+                    // type="feather"
+                    color="#2196F3"
+                    size={28}
                     onPress={() => this.clickOne()}
                   />
                 </Right>

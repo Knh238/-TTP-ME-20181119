@@ -20,6 +20,7 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    //const nav = this.props.navigation;
     return (
       <View
         style={{
@@ -68,9 +69,10 @@ export default class HomeScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "rgba(96,100,109, 1)",
+                  // color: "rgba(96,100,109, 1)",
+                  color: "black",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 Kristin's Mobile App Build for TTP
@@ -78,9 +80,10 @@ export default class HomeScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
+                  color: "white",
+                  // color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 ps I also did a fullstack app...
@@ -107,27 +110,26 @@ export default class HomeScreen extends React.Component {
                 center
                 // Icon="arrowright"
                 title="Login-in"
-                textStyle={{ fontFamily: "playfair" }}
+                textStyle={{ fontFamily: "abril" }}
+                //onPress={() => nav.navigate("Login")}
                 // rightIcon="arrow"
               />
-
-              <TouchableOpacity
-                onPress={this._handleHelpPress}
-                style={{
-                  paddingVertical: 15
+              <Button
+                // icon={<Icon name="arrow-right" size={15} color="white" />}
+                buttonStyle={{
+                  backgroundColor: "rgb(66, 194, 244)",
+                  borderWidth: 0,
+                  borderRadius: 30,
+                  alignSelf: "center",
+                  width: "33%"
                 }}
-              >
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1565C0",
-                    textAlign: "center"
-                    // fontFamily: "playfairBold"
-                  }}
-                >
-                  buzzfeed
-                </Text>
-              </TouchableOpacity>
+                center
+                // Icon="arrowright"
+                title="Sign-up"
+                textStyle={{ fontFamily: "abril" }}
+                //onPress={() => nav.navigate("SignUp")}
+                // rightIcon="arrow"
+              />
             </View>
           </LinearGradient>
         </ScrollView>

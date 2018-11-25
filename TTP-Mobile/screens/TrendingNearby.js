@@ -114,9 +114,9 @@ export default class TrendingNearbyScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "rgba(96,100,109, 1)",
+                  color: "white",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 Kristin's Mobile App Build for TTP
@@ -126,7 +126,7 @@ export default class TrendingNearbyScreen extends React.Component {
                   fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 ps I also did a fullstack app...
@@ -136,7 +136,7 @@ export default class TrendingNearbyScreen extends React.Component {
                   fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "oxygen"
                 }}
               >
                 trending info @ location
@@ -146,7 +146,7 @@ export default class TrendingNearbyScreen extends React.Component {
                   fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "oxygen"
                 }}
               >
                 on -moment js today display
@@ -175,7 +175,7 @@ export default class TrendingNearbyScreen extends React.Component {
                         fontSize: 25,
                         color: "rgba(96,100,109, 1)",
                         textAlign: "center",
-                        fontFamily: "playfair"
+                        fontFamily: "oxygen"
                       }}
                     >
                       1. {this.state[0].name}
@@ -184,10 +184,10 @@ export default class TrendingNearbyScreen extends React.Component {
                   <ListItem>
                     <Text
                       style={{
-                        fontSize: 20,
+                        fontSize: 25,
                         color: "rgba(96,100,109, 1)",
                         textAlign: "center",
-                        fontFamily: "playfair"
+                        fontFamily: "oxygen"
                       }}
                     >
                       2.{this.state[1].name}
@@ -196,10 +196,10 @@ export default class TrendingNearbyScreen extends React.Component {
                   <ListItem>
                     <Text
                       style={{
-                        fontSize: 17,
+                        fontSize: 25,
                         color: "rgba(96,100,109, 1)",
                         textAlign: "center",
-                        fontFamily: "playfair"
+                        fontFamily: "oxygen"
                       }}
                     >
                       3. {this.state[2].name}
@@ -208,10 +208,10 @@ export default class TrendingNearbyScreen extends React.Component {
                   <ListItem>
                     <Text
                       style={{
-                        fontSize: 15,
+                        fontSize: 25,
                         color: "rgba(96,100,109, 1)",
                         textAlign: "center",
-                        fontFamily: "playfair"
+                        fontFamily: "oxygen"
                       }}
                     >
                       4. {this.state[3].name}
@@ -229,21 +229,7 @@ export default class TrendingNearbyScreen extends React.Component {
                   position: "relative"
                 }}
               /> */}
-              <Button
-                // icon={<Icon name="arrow-right" size={15} color="white" />}
-                buttonStyle={{
-                  backgroundColor: "rgb(66, 194, 244)",
-                  borderWidth: 0,
-                  borderRadius: 30,
-                  alignSelf: "center",
-                  width: "33%"
-                }}
-                center
-                // Icon="arrowright"
-                title="Login-in"
-                textStyle={{ fontFamily: "playfair" }}
-                // rightIcon="arrow"
-              />
+
               {/* <TouchableOpacity
                 onPress={this._handleHelpPress}
                 style={{

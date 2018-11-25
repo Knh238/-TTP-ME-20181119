@@ -114,9 +114,10 @@ export default class TweetsNearMeScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "rgba(96,100,109, 1)",
+                  // color: "rgba(96,100,109, 1)",
+                  color: "white",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 Kristin's Mobile App Build for TTP
@@ -126,7 +127,7 @@ export default class TweetsNearMeScreen extends React.Component {
                   fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 ps I also did a fullstack app...
@@ -136,7 +137,7 @@ export default class TweetsNearMeScreen extends React.Component {
                   fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 trending info @ location
@@ -146,7 +147,7 @@ export default class TweetsNearMeScreen extends React.Component {
                   fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "playfair"
+                  fontFamily: "abril"
                 }}
               >
                 on -moment js today display
@@ -229,21 +230,7 @@ export default class TweetsNearMeScreen extends React.Component {
                   position: "relative"
                 }}
               /> */}
-              <Button
-                // icon={<Icon name="arrow-right" size={15} color="white" />}
-                buttonStyle={{
-                  backgroundColor: "rgb(66, 194, 244)",
-                  borderWidth: 0,
-                  borderRadius: 30,
-                  alignSelf: "center",
-                  width: "33%"
-                }}
-                center
-                // Icon="arrowright"
-                title="Login-in"
-                textStyle={{ fontFamily: "playfair" }}
-                // rightIcon="arrow"
-              />
+
               {/* <TouchableOpacity
                 onPress={this._handleHelpPress}
                 style={{

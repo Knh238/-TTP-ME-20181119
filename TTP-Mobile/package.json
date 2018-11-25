@@ -11,7 +11,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "expo": "^31.0.2",
-    "firebase": "^5.5.5",
+    "firebase": "^5.5.9",
     "lottie-react-native": "^2.5.10",
     "moment": "^2.22.2",
     "native-base": "^2.8.1",

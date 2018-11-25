@@ -80,3 +80,10 @@ const styles = StyleSheet.create({
 //gets only one obj
 
 ///https://api.twitter.com/1.1/trends/place.json
+
+//note: this should eventaully be loaded with app or home page. so u can pass it down as props. then call it elsewhere.
+// https://api.twitter.com/1.1/search/tweets.json
+// ?q=nasa&result_type=popular
+// /1.1/search/tweets.json?q=nasa&result_type=popular
+// specified by ” latitude,longitude,radius “,
+// ///default count is 15

@@ -8,6 +8,8 @@ import TrendingNearbyScreen from "../screens/TrendingNearby";
 import TweetsNearMeScreen from "../screens/TweetsNearMe";
 import LocationScreen from "../screens/Location";
 //import Profile from "../screens/Profile";
+import Login from "../screens/Login";
+import SignUp from "../screens/SignUp";
 
 const StackNavigator = createStackNavigator(
   {
@@ -57,6 +59,16 @@ const StackNavigator = createStackNavigator(
       screen: HomeScreen
       // headerRight: null,
       // tabBarVisible: true
+    },
+    Login: {
+      screen: Login
+      // headerRight: null,
+      // appBarVisible: true
+    },
+    SignUp: {
+      screen: SignUp
+      // headerRight: null,
+      // appBarVisible: true
     },
     TrendingNearby: {
       screen: TrendingNearbyScreen
