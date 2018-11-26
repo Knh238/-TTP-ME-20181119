@@ -167,8 +167,8 @@ import Header from "../secrets";
 export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { groups: [], user: "" };
-    //this.deleteProject = this.deleteProject.bind(this);
+    this.state = { userGroups: [], user: "" };
+    this.deleteGroup = this.deleteGroup.bind(this);
   }
 
   componentWillMount() {
@@ -197,19 +197,27 @@ export default class SettingsScreen extends React.Component {
   // self.setState({ tweets: res.data.statuses });
   //   }
 
-  //   deleteGroup(key) {
-  //     return firebase
-  //       .database()
-  //       .ref("projects")
-  //       .child(key)
-  //       .remove();
-  //   }
+  deleteGroup(key) {
+    const nav = this.props.navigation;
+    firebase.auth().onAuthStateChanged(async function(user) {
+      if (user) {
+        const currUser = user.uid;
+        return firebase
+          .database()
+          .ref(`users/${currUser}/groups`)
+          .child(key.toString())
+          .remove();
+      }
+    });
+    nav.navigate("Home");
+  }
 
   render() {
     this.state ? console.log("theres state!") : null;
-    const groups = this.props.navigation.state.params.groups;
+    const nav = this.props.navigation;
+    const groups = this.props.navigation.state.params.userGroups;
     const displayName = this.state.user;
-    console.log("this props in the redner of group view----------", groups);
+    // console.log("this props in the redner of group view----------", groups);
     return (
       <View
         style={{
@@ -254,8 +262,8 @@ export default class SettingsScreen extends React.Component {
             <View>
               <Text
                 style={{
-                  fontSize: 25,
-
+                  fontSize: 35,
+                  padding: 10,
                   color: "white",
                   textAlign: "center",
                   fontFamily: "abril"
@@ -266,8 +274,9 @@ export default class SettingsScreen extends React.Component {
 
               <Text
                 style={{
-                  fontSize: 30,
+                  fontSize: 25,
                   //color: "rgba(96,100,109, 1)",
+                  padding: 10,
                   color: "white",
                   textAlign: "center",
                   fontFamily: "abril"
@@ -275,10 +284,18 @@ export default class SettingsScreen extends React.Component {
               >
                 # groups
               </Text>
-              <List>
+              <List
+                style={{
+                  width: "90%",
+                  alignSelf: "center"
+                }}
+              >
                 {groups
                   ? groups.map(msg => (
-                      <ListItem style={{ backgroundColor: "white" }} key={msg}>
+                      <ListItem
+                        style={{ backgroundColor: "white" }}
+                        key={msg.key}
+                      >
                         <Body>
                           <Text
                             style={{
@@ -288,15 +305,17 @@ export default class SettingsScreen extends React.Component {
                               fontFamily: "abril"
                             }}
                           >
-                            {msg}
+                            {msg.value}
                           </Text>
                         </Body>
                         <Right>
                           <Icon
+                            raised
                             size={25}
                             name="delete"
                             type="material-icons"
                             color="black"
+                            onPress={() => this.deleteGroup(msg.key)}
                             //onPress={() => nav.navigate("Home")}
                           />
                         </Right>
@@ -305,15 +324,19 @@ export default class SettingsScreen extends React.Component {
                   : null}
               </List>
               <Button
-                title="CREATE PROJECT"
+                title="ADD NEW GROUP"
+                raised
+                icon={{ name: "add" }}
                 buttonStyle={{
-                  width: "100%",
-                  height: 45,
-                  marginTop: 10,
-                  backgroundColor: "#242424",
-                  alignContent: "center"
+                  padding: 10,
+                  marginTop: 20,
+                  borderWidth: 0,
+                  borderRadius: 30,
+                  alignSelf: "center",
+                  width: "70%",
+                  backgroundColor: "#242424"
                 }}
-                // onPress={() => nav.navigate('Create')}
+                onPress={() => nav.navigate("CreateGroup", { groups })}
               />
             </View>
           </ScrollView>

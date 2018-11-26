@@ -83,31 +83,35 @@ class CustomDrawer extends Component {
 
   componentDidMount() {
     const self = this;
-    let userGroups;
+
     // let user=auth().currentUser
-    firebase.auth().onAuthStateChanged(async function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         const currUser = user.uid;
-        // console.log("current user uid", user.);
-        const groups = await firebase
-          .database()
-          .ref(`users/${currUser}/groups`)
-          .once("value")
-          .then(snap => snap.val());
-
-        //console.log("this user group before setting state", groups);
-        self.setState({
-          groups
+        var ref = firebase.database().ref(`users/${currUser}/groups`);
+        ref.on("value", function(snapshot) {
+          let groups = snapshot.val();
+          let userGroups = [];
+          for (let key in groups) {
+            let obj = {};
+            obj.key = key;
+            obj.value = groups[key];
+            // console.log("this groups -------", groups[key], "key is ----", key);
+            userGroups.push(obj);
+            //console.log("this user groups ----", userGroups);
+          }
+          // console.log("this user groups ----", userGroups);
+          self.setState({
+            userGroups
+          });
         });
-      } else {
-        console.log("no groups");
       }
     });
   }
 
   render() {
     const nav = this.props.navigation;
-    //console.log("this state in drawer is------", this.state);
+    console.log("this state in drawer is------", this.state);
     return (
       <Container>
         <Header style={{ height: 80 }}>
@@ -131,26 +135,6 @@ class CustomDrawer extends Component {
         >
           <ScrollView>
             <List>
-              <ListItem
-                style={{
-                  marginLeft: 0,
-                  paddingLeft: 10
-                }}
-                onPress={() => nav.navigate("TrendingNearby")}
-              >
-                <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>Settings</Text>
-                </Body>
-                <Right>
-                  <Icon
-                    name="user-circle"
-                    type="font-awesome"
-                    color="#2196F3"
-                    size={28}
-                  />
-                </Right>
-              </ListItem>
-
               <ListItem
                 style={{
                   marginLeft: 0,
@@ -217,7 +201,7 @@ class CustomDrawer extends Component {
                 }}
                 onPress={() =>
                   nav.navigate("Settings", {
-                    groups: this.state.groups
+                    userGroups: this.state.userGroups
                   })
                 }
               >
@@ -234,12 +218,12 @@ class CustomDrawer extends Component {
                 </Right>
               </ListItem>
 
-              {this.state.groups
-                ? this.state.groups.map(group => {
+              {this.state.userGroups
+                ? this.state.userGroups.map(group => {
                     // let hashtag = "#" + group;
                     return (
                       <ListItem
-                        key={group}
+                        key={group.key}
                         title={group}
                         style={{
                           marginLeft: 10,
@@ -250,7 +234,7 @@ class CustomDrawer extends Component {
                         }}
                         onPress={() =>
                           nav.navigate("GroupView", {
-                            group
+                            group: group.value
                           })
                         }
                       >
@@ -260,15 +244,20 @@ class CustomDrawer extends Component {
                           color="#2196F3"
                           size={25}
                         />
-                        <Text style={{ fontFamily: "oxygen" }}>{group}</Text>
+                        <Text style={{ fontFamily: "oxygen" }}>
+                          {group.value}
+                        </Text>
                       </ListItem>
                     );
                   })
                 : null}
 
-              <ListItem>
+              <ListItem
+                onPress={() =>
+                  nav.navigate("CreateGroup", { groups: this.state.groups })
+                }
+              >
                 <Icon
-                  // name="add-circle-outline"
                   name="add-circle"
                   type="materialicons"
                   color="#2196F3"
@@ -299,27 +288,3 @@ const DrawerNavigator = createDrawerNavigator(
   }
 );
 export default DrawerNavigator;
-
-/* <ListItem>
-                <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>
-                    {" "}
-                    New Tweets in group
-                  </Text>
-                </Body>
-                <Right>
-                  <Badge warning>
-                    {/* //success is green
-                  //info is light blue 
-                  //primary is navy */
-
-//       <Text
-//         style={{
-//           fontFamily: "oxygen"
-//         }}
-//       >
-//         6
-//       </Text>
-//     </Badge>
-//   </Right>
-// </ListItem> */}

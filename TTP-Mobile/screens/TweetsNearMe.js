@@ -4,12 +4,21 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View
 } from "react-native";
 
-import { List, ListItem, Left, Right, Badge } from "native-base";
+import {
+  List,
+  ListItem,
+  Left,
+  Right,
+  Badge,
+  Thumbnail,
+  Body,
+  Text,
+  Card
+} from "native-base";
 import { Button } from "react-native-elements";
 import LottieView from "lottie-react-native";
 // import Icon from "react-native-vector-icons/FontAwesome";
@@ -27,7 +36,7 @@ import Header from "../secrets";
 export default class TweetsNearMeScreen extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = { tweets: [] };
   }
 
   //later seperate this out to grab location as a seperate property
@@ -35,14 +44,7 @@ export default class TweetsNearMeScreen extends React.Component {
   //or just [ ] when u pass it to state like {Trends:[data[0]]}
   componentWillMount() {
     const self = this;
-    // return axios
-    //   .get("https://api.twitter.com/1.1/trends/place.json?id=2459115", {
-    //     headers: Header
-    //   })
-    //   .then(function(res) {
-    //     console.log("data is", res.data[0].trends);
-    //     self.setState(res.data[0].trends);
-    //   });
+
     return axios
       .get(
         "https://api.twitter.com/1.1/search/tweets.json?geocode=40.7268,-73.9910,5mi",
@@ -55,7 +57,7 @@ export default class TweetsNearMeScreen extends React.Component {
           "data is--------------------",
           res.data.statuses[0].user.id_str
         );
-        self.setState(res.data.statuses);
+        self.setState({ tweets: res.data.statuses });
       });
     // https://api.twitter.com/1.1/search/tweets.json
     // ?q=nasa&result_type=popular
@@ -127,135 +129,59 @@ export default class TweetsNearMeScreen extends React.Component {
                   fontFamily: "abril"
                 }}
               >
-                Kristin's Mobile App Build for TTP
+                Tweets near me
               </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril"
-                }}
-              >
-                ps I also did a fullstack app...
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril"
-                }}
-              >
-                trending info @ location
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril"
-                }}
-              >
-                on -moment js today display
-              </Text>
-              {/*     
-              {this.state[0]
-                ? this.state.map(topic => (
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      {topic.name}
-                    </Text>
-                  ))
-                : null} */}
 
-              {this.state[0] ? (
-                <List>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      1. {this.state[0].name}
-                      text of tweet screename, profile photo, and created time
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      2.{this.state[1].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 17,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      3. {this.state[2].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      4. {this.state[3].name}
-                    </Text>
-                  </ListItem>
-                </List>
-              ) : null}
-
-              {/* <LottieView
-                source={require("../assets/images/twitter_icon.json")}
-                autoPlay
-                loop
-                style={{
-                  alignContent: "center",
-                  position: "relative"
-                }}
-              /> */}
-
-              {/* <TouchableOpacity
-                onPress={this._handleHelpPress}
-                style={{
-                  paddingVertical: 15
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1565C0",
-                    textAlign: "center"
-                    // fontFamily: "playfairBold"
-                  }}
-                >
-                  buzzfeed
-                </Text>
-              </TouchableOpacity> */}
+              <List>
+                {this.state.tweets
+                  ? this.state.tweets.map(msg => (
+                      // <ListItem avatar key={msg.id}>
+                      <Card
+                        key={msg.id}
+                        style={{
+                          padding: 20,
+                          width: "85%",
+                          alignSelf: "center"
+                        }}
+                      >
+                        <Left>
+                          <Thumbnail
+                            source={{
+                              uri: `${msg.user.profile_image_url}`
+                            }}
+                          />
+                        </Left>
+                        <Body>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              color: "rgba(96,100,109, 1)",
+                              textAlign: "center",
+                              fontFamily: "abril"
+                            }}
+                          >
+                            {msg.user.name}@{msg.user.screen_name}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              color: "rgba(96,100,109, 1)",
+                              textAlign: "center",
+                              fontFamily: "oxygen"
+                            }}
+                          >
+                            {msg.text}
+                          </Text>
+                        </Body>
+                        <Right>
+                          <Text note fontFamily="sedgwick">
+                            {msg.created_at.slice(0, 16)}{" "}
+                          </Text>
+                        </Right>
+                      </Card>
+                    ))
+                  : null}
+              </List>
             </View>
           </ScrollView>
         </LinearGradient>

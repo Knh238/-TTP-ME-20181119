@@ -4,12 +4,22 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
+  // Text,
   TouchableOpacity,
   View
 } from "react-native";
 
-import { List, ListItem, Left, Right, Badge } from "native-base";
+import {
+  List,
+  ListItem,
+  Left,
+  Right,
+  Badge,
+  Card,
+  Thumbnail,
+  Body,
+  Text
+} from "native-base";
 import { Button } from "react-native-elements";
 import LottieView from "lottie-react-native";
 // import Icon from "react-native-vector-icons/FontAwesome";
@@ -27,7 +37,7 @@ import Header from "../secrets";
 export default class TrendingNearbyScreen extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = { tweets: [] };
   }
 
   //later seperate this out to grab location as a seperate property
@@ -40,8 +50,8 @@ export default class TrendingNearbyScreen extends React.Component {
         headers: Header
       })
       .then(function(res) {
-        console.log("data is", res.data[0].trends);
-        self.setState(res.data[0].trends);
+        // console.log("data is", res.data[0].trends);
+        self.setState({ tweets: res.data[0].trends });
       });
     // return axios
     //   .get(
@@ -125,43 +135,61 @@ export default class TrendingNearbyScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "white",
-                  textAlign: "center",
-                  fontFamily: "abril"
-                }}
-              >
-                Kristin's Mobile App Build for TTP
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
-                  fontFamily: "abril"
+                  fontFamily: "abril",
+                  padding: 10
                 }}
               >
-                ps I also did a fullstack app...
+                Trending Topics in Your Area
+                {/* or trending near you */}
+                {/* maybe: near --ex location if pass down */}
               </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "oxygen"
-                }}
-              >
-                trending info @ location
-              </Text>
-              <Text
-                style={{
-                  fontSize: 20,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "oxygen"
-                }}
-              >
-                on -moment js today display
-              </Text>
+
+              {this.state.tweets
+                ? this.state.tweets.map(msg => (
+                    <Card
+                      key={msg.name}
+                      style={{ padding: 20, width: "85%", alignSelf: "center" }}
+                    >
+                      {/* <Left>
+                        <Thumbnail
+                          source={{
+                            uri: `${msg.user.profile_image_url}`
+                          }}
+                        />
+                      </Left> */}
+                      {/* <Body> */}
+                      <Text
+                        style={{
+                          fontSize: 25,
+                          color: "rgba(96,100,109, 1)",
+                          textAlign: "center",
+                          fontFamily: "abril"
+                        }}
+                      >
+                        {msg.name}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          color: "rgba(96,100,109, 1)",
+                          textAlign: "center",
+                          fontFamily: "oxygen"
+                        }}
+                      >
+                        # of tweets about this: {msg.tweet_volume}
+                      </Text>
+                      {/* </Body> */}
+                      {/* <Right>
+                        <Text note fontFamily="sedgwick">
+                          {msg.created_at.slice(0, 16)}{" "}
+                        </Text>
+                      </Right> */}
+                    </Card>
+                  ))
+                : null}
+
               {/*     
               {this.state[0]
                 ? this.state.map(topic => (
@@ -177,59 +205,6 @@ export default class TrendingNearbyScreen extends React.Component {
                     </Text>
                   ))
                 : null} */}
-
-              {this.state[0] ? (
-                <List>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "oxygen"
-                      }}
-                    >
-                      1. {this.state[0].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "oxygen"
-                      }}
-                    >
-                      2.{this.state[1].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "oxygen"
-                      }}
-                    >
-                      3. {this.state[2].name}
-                    </Text>
-                  </ListItem>
-                  <ListItem>
-                    <Text
-                      style={{
-                        fontSize: 25,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "oxygen"
-                      }}
-                    >
-                      4. {this.state[3].name}
-                    </Text>
-                  </ListItem>
-                </List>
-              ) : null}
 
               {/* <LottieView
                 source={require("../assets/images/twitter_icon.json")}

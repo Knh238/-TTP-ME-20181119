@@ -29,6 +29,7 @@ import {
   Body,
   Right,
   Thumbnail,
+  Card,
   Text
 } from "native-base";
 import { Button, Icon } from "react-native-elements";
@@ -175,48 +176,61 @@ export default class GroupView extends React.Component {
               >
                 # {hashtag}
               </Text>
-              <List>
-                {this.state.tweets
-                  ? this.state.tweets.map(msg => (
-                      <ListItem avatar key={msg.id}>
-                        <Left>
-                          <Thumbnail
-                            source={{
-                              uri: `${msg.user.profile_image_url}`
-                            }}
-                          />
-                        </Left>
-                        <Body>
-                          <Text
-                            style={{
-                              fontSize: 15,
-                              color: "rgba(96,100,109, 1)",
-                              textAlign: "center",
-                              fontFamily: "abril"
-                            }}
-                          >
-                            {msg.user.name}@{msg.user.screen_name}
-                          </Text>
-                          <Text
-                            style={{
-                              fontSize: 15,
-                              color: "rgba(96,100,109, 1)",
-                              textAlign: "center",
-                              fontFamily: "oxygen"
-                            }}
-                          >
-                            {msg.text}
-                          </Text>
-                        </Body>
-                        <Right>
-                          <Text note fontFamily="sedgwick">
-                            {msg.created_at.slice(0, 16)}{" "}
-                          </Text>
-                        </Right>
-                      </ListItem>
-                    ))
-                  : null}
-              </List>
+              {/* <List
+                style={{
+                  backgroundColor: "white",
+                  padding: 10,
+                  width: "90%",
+                  alignSelf: "center"
+                }}
+              > */}
+              {this.state.tweets
+                ? this.state.tweets.map(msg => (
+                    <Card
+                      avatar
+                      key={msg.id}
+                      style={{ padding: 10, width: "90%", alignSelf: "center" }}
+                    >
+                      <Left>
+                        <Thumbnail
+                          source={{
+                            uri: `${msg.user.profile_image_url}`
+                          }}
+                        />
+                      </Left>
+                      <Body>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            color: "rgba(96,100,109, 1)",
+                            textAlign: "center",
+                            fontFamily: "abril"
+                          }}
+                        >
+                          {msg.user.name}@{msg.user.screen_name}
+                        </Text>
+                        <Text
+                          style={{
+                            paddingTop: 10,
+                            paddingBottom: 10,
+                            fontSize: 15,
+                            color: "rgba(96,100,109, 1)",
+                            textAlign: "center",
+                            fontFamily: "oxygen"
+                          }}
+                        >
+                          {msg.text}
+                        </Text>
+                      </Body>
+                      <Right>
+                        <Text note fontFamily="sedgwick">
+                          {msg.created_at.slice(0, 16)}{" "}
+                        </Text>
+                      </Right>
+                    </Card>
+                  ))
+                : null}
+              {/* </List> */}
             </View>
           </ScrollView>
         </LinearGradient>

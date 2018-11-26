@@ -17,51 +17,93 @@ import { Card, Button, FormLabel, FormInput } from "react-native-elements";
 export default class CreateGroup extends Component {
   constructor() {
     super();
-    this.state = {
-      member: []
-    };
+    this.state = { group: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.randomColor = this.randomColor.bind(this);
   }
 
-  randomColor() {
-    let colors = [
-      "6affad",
-      "bb1f4b",
-      "9cc2e9",
-      "16941f",
-      "6c1694",
-      "ff6c00",
-      "d88383",
-      "b5ed7e",
-      "7e9bed",
-      "a294b7",
-      "b3feff",
-      "e2a9a9",
-      "f8e4a0",
-      "8f11e0",
-      "c04d4d"
-    ];
-    let n = Math.floor(Math.random() * colors.length);
-    return colors[n];
+  // componentDidMount() {
+  //   const self = this;
+  //   firebase.auth().onAuthStateChanged(function(user) {
+  //     if (user) {
+  //       let userProjects = [];
+  //       var ref = firebase.database().ref("projects");
+  //       ref.on("value", function(snapshot) {
+  //         let projects = snapshot.val();
+  //         for (let key in projects) {
+  //           if (projects[key].members) {
+  //             const members = projects[key].members;
+  //             const name = projects[key].name;
+  //             const color = projects[key].color;
+  //             if (members.includes(user.email)) {
+  //               userProjects.push({ name, key, color });
+  //             }
+  //           }
+  //         }
+  //         self.setState({
+  //           projects: userProjects,
+  //           selectedProject: userProjects[0].key
+  //         });
+  //       });
+  //     }
+  //   });
+  // }
+  handleSubmit() {
+    const self = this;
+    const nav = this.props.navigation;
+    const group = this.state.group;
+    //const groups = this.props.navigation.state.params.groups.length;
+    // let userGroups;
+    // let user=auth().currentUser
+    firebase.auth().onAuthStateChanged(async function(user) {
+      if (user) {
+        const currUser = user.uid;
+        // console.log("current user uid", user.);
+        // const groups = await firebase
+        //   .database()
+        //   .ref(`users/${currUser}/groups`)
+        //   .once("value")
+        //   .then(snap => snap.val());
+
+        const newKey = await firebase
+          .database()
+          .ref(`users/${currUser}/groups/`)
+          .push().key;
+        firebase
+          .database()
+          .ref(`users/${currUser}/groups/`)
+          .child(newKey)
+          .set(group);
+        Keyboard.dismiss();
+        self.setState({
+          group: ""
+        });
+        nav.navigate("Home");
+
+        //console.log("this user group before setting state", groups);
+        //     self.setState({
+        //       groups
+        //     });
+        //   } else {
+        //     console.log("no groups");
+      }
+    });
   }
 
   //   handleSubmit() {
   //     const nav = this.props.navigation;
   //     const name = this.state.name;
-  //     const member = this.state.member;
-  //     const color = this.randomColor();
+
   //     let newKey;
   //     let currentUser;
   //     firebase.auth().onAuthStateChanged(function(user) {
-  //       currentUser = user.email;
-  //       newKey = firebase
-  //         .database()
-  //         .ref("projects/")
-  //         .push().key;
+  //       currentUser = user.uid;
+  // newKey = firebase
+  //   .database()
+  //   .ref("projects/")
+  //   .push().key;
   //       firebase
   //         .database()
-  //         .ref("projects/" + newKey)
+  //         .ref("user/" )
   //         .set({
   //           name,
   //           color,
@@ -88,15 +130,8 @@ export default class CreateGroup extends Component {
     return (
       <View>
         <Card>
-          <FormLabel>Group Name</FormLabel>
-          <FormInput onChangeText={name => this.setState({ name })} />
-
-          <FormLabel>Group Hashtags (use "," to add more than one)</FormLabel>
-          <FormInput
-            onChangeText={member => this.setState({ member })}
-            inputStyle={{ width: undefined }}
-            multiline
-          />
+          <FormLabel>Group Topic</FormLabel>
+          <FormInput onChangeText={group => this.setState({ group })} />
         </Card>
         <Button
           title="CREATE"

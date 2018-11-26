@@ -20,10 +20,6 @@ const StackNavigator = createStackNavigator(
       screen: TabNavigator,
       navigationOptions: ({ navigation }) => ({
         headerTitle: (
-          // <Image
-          //   source={require("../assets/images/heart.png")}
-          //   style={{ width: 10, height: 10 }}
-          // />
           <Image
             source={
               __DEV__
@@ -38,7 +34,6 @@ const StackNavigator = createStackNavigator(
               marginLeft: -10
             }}
           />
-          // <Icon name="heartbeat" type="font-awesome" color="royalblue" />
         ),
         headerTintColor: "#000000",
         headerBackTitle: null,
@@ -48,20 +43,13 @@ const StackNavigator = createStackNavigator(
               <Icon name="menu" />
             </View>
           </TouchableOpacity>
-        ),
-        headerRight: (
-          <TouchableOpacity onPress={() => navigation.navigate("Note")}>
-            <View style={{ paddingHorizontal: 10 }}>
-              <Icon name="add" />
-            </View>
-          </TouchableOpacity>
         )
       })
     },
     Home: {
-      screen: HomeScreen
+      screen: HomeScreen,
       // headerRight: null,
-      // tabBarVisible: true
+      tabBarVisible: false
     },
     Login: {
       screen: Login
