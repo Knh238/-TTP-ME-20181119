@@ -11,6 +11,8 @@ import { AppLoading, Asset, Font, Icon } from "expo";
 import { createSwitchNavigator } from "react-navigation";
 import DrawerNavigator from "./navigation/DrawerNavigator";
 
+console.disableYellowBox = true;
+
 export default class App extends Component {
   state = {
     isLoadingComplete: false

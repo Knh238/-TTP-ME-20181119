@@ -24,25 +24,12 @@ export default class HomeScreen extends React.Component {
     return (
       <View
         style={{
-          //   flexDirection: "column",
-          //   padding: 20,
           flex: 1,
           justifyContent: "center",
           alignContent: "center"
         }}
       >
-        {/* <ScrollView
-        //   style={{
-        //     flex: 1,
-        //     backgroundColor: "#fff"
-        //   }}
-        //   contentContainerStyle={{
-        //     padding: 10
-        //   }}
-        > */}
         <LinearGradient
-          // colors={["#90CAF9", "#2196F3", "#1976D2"]}
-          // colors={["powderblue", "lightblue", "#2196F3"]}
           colors={["powderblue", "lightblue", "#90caf9"]}
           fill
           style={{
@@ -56,32 +43,28 @@ export default class HomeScreen extends React.Component {
           <View
             style={{
               alignItems: "center"
-              // marginTop: 10,
-              // marginBottom: 10
             }}
           />
           <View>
             <Text
               style={{
                 fontSize: 25,
-                // color: "rgba(96,100,109, 1)",
                 color: "black",
                 textAlign: "center",
                 fontFamily: "abril"
               }}
             >
-              Kristin's Mobile App Build for TTP
+              Kristin's Mobile App Build
             </Text>
             <Text
               style={{
                 fontSize: 20,
                 color: "white",
-                // color: "rgba(96,100,109, 1)",
                 textAlign: "center",
                 fontFamily: "abril"
               }}
             >
-              ps I also did a fullstack app...
+              for Tech Talent Pipeline
             </Text>
             <LottieView
               source={require("../assets/images/twitter_icon.json")}
@@ -94,9 +77,7 @@ export default class HomeScreen extends React.Component {
             />
 
             <Button
-              // icon={<Icon name="arrow-right" size={15} color="white" />}
               buttonStyle={{
-                // backgroundColor: "rgb(66, 194, 244)",
                 backgroundColor: "white",
                 borderWidth: 0,
                 borderRadius: 30,
@@ -104,14 +85,11 @@ export default class HomeScreen extends React.Component {
                 width: "33%"
               }}
               center
-              // Icon="arrowright"
               title="Login-in"
               textStyle={{ fontFamily: "abril", color: "rgb(66, 194, 244)" }}
               onPress={() => nav.navigate("Login")}
-              // rightIcon="arrow"
             />
             <Button
-              // icon={<Icon name="arrow-right" size={15} color="white" />}
               buttonStyle={{
                 backgroundColor: "white",
                 borderWidth: 0,
@@ -121,20 +99,13 @@ export default class HomeScreen extends React.Component {
                 marginTop: 10
               }}
               center
-              // Icon="arrowright"
               title="Sign-up"
               textStyle={{ fontFamily: "abril", color: "rgb(66, 194, 244)" }}
               onPress={() => nav.navigate("SignUp")}
-              // rightIcon="arrow"
             />
           </View>
         </LinearGradient>
-        {/* </ScrollView> */}
       </View>
     );
   }
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync("http://www.buzzfeed.com");
-  };
 }

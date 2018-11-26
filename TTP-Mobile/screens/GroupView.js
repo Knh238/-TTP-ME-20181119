@@ -44,6 +44,7 @@ export default class GroupView extends React.Component {
         self.setState({ tweets: res.data.statuses });
       });
     scrollTo({ x: 0, y: 0 });
+    //tryign to get it to jump back to the top of scroll view.
   }
 
   render() {
@@ -131,6 +132,14 @@ export default class GroupView extends React.Component {
                 title="check for new posts"
                 textStyle={{ fontFamily: "abril", color: "rgb(66, 194, 244)" }}
                 onPress={() => this.componentWillMount()}
+                //p.s. i know this is the wrong way to do this.
+                //I know there should be a component willupdate/etc
+                //that will send a modified request to the api
+                //that would look for posts since_id:
+                //which would mean i'd need to store the id of the last item in the array
+                //the response array that is currently on state
+                //and place that on a diff property in state
+                //then if the number of in a place on state and keep updating it
               />
               {this.state.tweets
                 ? this.state.tweets.map(msg => (

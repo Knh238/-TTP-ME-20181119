@@ -80,6 +80,7 @@ class CustomDrawer extends Component {
     //console.log("location info------", location);
     this.setState({ lat });
     this.setState({ long });
+    this.getWOEID();
   };
   getWOEID() {
     const self = this;
