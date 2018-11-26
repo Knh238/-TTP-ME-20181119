@@ -55,7 +55,11 @@ export default class GroupView extends React.Component {
     const nav = this.props.navigation;
     this.state ? console.log("theres state!") : null;
     const hashtag = this.props.navigation.state.params.group;
-    console.log("this props in the redner of group view----------", hashtag);
+    // console.log(
+    //   "this props in the redner of group view----------",
+    //   this.state.tweets[0]
+    // );
+    // console.log("this props in the redner of group view----------", hashtag);
     return (
       <View
         style={{
@@ -144,13 +148,20 @@ export default class GroupView extends React.Component {
                       key={msg.id}
                       style={{ padding: 10, width: "90%", alignSelf: "center" }}
                     >
-                      <Left>
-                        <Thumbnail
-                          source={{
-                            uri: `${msg.user.profile_image_url}`
-                          }}
-                        />
-                      </Left>
+                      <TouchableOpacity
+                        onPress={() =>
+                          nav.navigate("AuthorInfo", { user: msg.user })
+                        }
+                      >
+                        <Left>
+                          <Thumbnail
+                            source={{
+                              uri: `${msg.user.profile_image_url}`
+                            }}
+                            //onPress={() => nav.navigate("AuthorInfo")}
+                          />
+                        </Left>
+                      </TouchableOpacity>
                       <Body>
                         <Text
                           style={{

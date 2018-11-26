@@ -24,6 +24,7 @@ import firebase from "../firebase";
 import GroupView from "../screens/GroupView";
 import axios from "axios";
 import AuthInfo from "../secrets";
+import ipKey from "../secretsStack";
 import { Constants, Location, Permissions } from "expo";
 
 class CustomDrawer extends Component {
@@ -62,13 +63,15 @@ class CustomDrawer extends Component {
       }
     });
     this._getLocationAsync();
+    this.getIP();
   }
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== "granted") {
-      this.setState({
-        errorMessage: "Permission to access location was denied"
-      });
+      // this.setState({
+      //   errorMessage: "Permission to access location was denied"
+      // });
+      this.getIP();
     }
 
     let location = await Location.getCurrentPositionAsync({});
@@ -77,7 +80,6 @@ class CustomDrawer extends Component {
     //console.log("location info------", location);
     this.setState({ lat });
     this.setState({ long });
-    this.getWOEID();
   };
   getWOEID() {
     const self = this;
@@ -93,6 +95,17 @@ class CustomDrawer extends Component {
       .then(function(res) {
         //console.log("data is--------------------", res.data[0]);
         self.setState({ woeid: res.data[0] });
+      });
+  }
+  getIP() {
+    const self = this;
+
+    return axios
+      .get(`http://api.ipstack.com/check?access_key=${ipKey}`)
+      .then(function(res) {
+        //console.log("data is--------------------", res.data.longitude);
+        self.setState({ lat: res.data.latitude });
+        self.setState({ long: res.data.longitude });
       });
   }
 

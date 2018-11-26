@@ -27,10 +27,6 @@ import { LinearGradient } from "expo";
 import axios from "axios";
 import AuthInfo from "../secrets";
 
-// static navigationOptions = {
-//   header: null
-// };
-
 export default class TrendingNearbyScreen extends React.Component {
   constructor() {
     super();

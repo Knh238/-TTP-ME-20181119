@@ -13,6 +13,7 @@ import SignUp from "../screens/SignUp";
 import CreateGroup from "../screens/CreateGroup";
 import GroupView from "../screens/GroupView";
 import SettingsScreen from "../screens/Settings";
+import AuthorInfo from "../screens/AuthorInfo";
 
 const StackNavigator = createStackNavigator(
   {
@@ -69,6 +70,9 @@ const StackNavigator = createStackNavigator(
     },
     GroupView: {
       screen: GroupView
+    },
+    AuthorInfo: {
+      screen: AuthorInfo
     },
     Settings: {
       screen: SettingsScreen
