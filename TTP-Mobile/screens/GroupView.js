@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-
 import {
   List,
   ListItem,
@@ -24,10 +23,6 @@ import { WebBrowser } from "expo";
 import { LinearGradient } from "expo";
 import axios from "axios";
 import AuthInfo from "../secrets";
-
-// static navigationOptions = {
-//   header: null
-// };
 
 export default class GroupView extends React.Component {
   constructor(props) {
@@ -55,11 +50,7 @@ export default class GroupView extends React.Component {
     const nav = this.props.navigation;
     this.state ? console.log("theres state!") : null;
     const hashtag = this.props.navigation.state.params.group;
-    // console.log(
-    //   "this props in the redner of group view----------",
-    //   this.state.tweets[0]
-    // );
-    // console.log("this props in the redner of group view----------", hashtag);
+
     return (
       <View
         style={{
@@ -158,7 +149,6 @@ export default class GroupView extends React.Component {
                             source={{
                               uri: `${msg.user.profile_image_url}`
                             }}
-                            //onPress={() => nav.navigate("AuthorInfo")}
                           />
                         </Left>
                       </TouchableOpacity>
@@ -194,27 +184,6 @@ export default class GroupView extends React.Component {
                     </Card>
                   ))
                 : null}
-              {/* <Button
-                buttonStyle={{
-                  backgroundColor: "white",
-                  borderWidth: 0,
-                  borderRadius: 30,
-                  alignSelf: "center",
-                  width: "60%",
-                  marginTop: 10
-                }}
-                center
-                icon={{
-                  name: "refresh",
-                  type: "font-awesome",
-                  color: "#1DA1F2"
-                }}
-                // Icon="arrowright"
-                title="check for new posts"
-                textStyle={{ fontFamily: "abril", color: "rgb(66, 194, 244)" }}
-                // onPress={() => this.forceUpdate()}
-                onPress={() => this.componentWillMount()}
-              /> */}
             </View>
           </ScrollView>
         </LinearGradient>

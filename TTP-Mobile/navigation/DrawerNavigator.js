@@ -93,7 +93,6 @@ class CustomDrawer extends Component {
         }
       )
       .then(function(res) {
-        //console.log("data is--------------------", res.data[0]);
         self.setState({ woeid: res.data[0] });
       });
   }
@@ -103,7 +102,6 @@ class CustomDrawer extends Component {
     return axios
       .get(`http://api.ipstack.com/check?access_key=${ipKey}`)
       .then(function(res) {
-        //console.log("data is--------------------", res.data.longitude);
         self.setState({ lat: res.data.latitude });
         self.setState({ long: res.data.longitude });
       });
@@ -111,13 +109,12 @@ class CustomDrawer extends Component {
 
   render() {
     const nav = this.props.navigation;
-    //console.log("this state in drawer is------", this.state);
+
     return (
       <Container>
         <Header style={{ height: 80 }}>
           <Body>
             <Icon
-              //   reverse
               size={55}
               name="twitter-square"
               type="font-awesome"
@@ -135,25 +132,6 @@ class CustomDrawer extends Component {
         >
           <ScrollView>
             <List>
-              {/* <ListItem
-                style={{
-                  marginLeft: 0,
-                  paddingLeft: 10
-                }}
-                onPress={() => nav.navigate("Location")}
-              >
-                <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>My Location</Text>
-                </Body>
-                <Right>
-                  <Icon
-                    name="location"
-                    type="entypo"
-                    color="#2196F3"
-                    size={35}
-                  />
-                </Right>
-              </ListItem> */}
               <ListItem
                 style={{
                   marginLeft: 0,

@@ -7,7 +7,6 @@ import HomeScreen from "../screens/HomeScreen";
 import TrendingNearbyScreen from "../screens/TrendingNearby";
 import TweetsNearMeScreen from "../screens/TweetsNearMe";
 import LocationScreen from "../screens/Location";
-
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 import CreateGroup from "../screens/CreateGroup";
