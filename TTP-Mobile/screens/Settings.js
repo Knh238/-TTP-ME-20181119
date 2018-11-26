@@ -263,7 +263,7 @@ export default class SettingsScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 35,
-                  padding: 10,
+                  // padding: 10,
                   color: "white",
                   textAlign: "center",
                   fontFamily: "abril"
@@ -275,7 +275,6 @@ export default class SettingsScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  //color: "rgba(96,100,109, 1)",
                   padding: 10,
                   color: "white",
                   textAlign: "center",
@@ -286,7 +285,7 @@ export default class SettingsScreen extends React.Component {
               </Text>
               <List
                 style={{
-                  width: "90%",
+                  width: "95%",
                   alignSelf: "center"
                 }}
               >
@@ -301,7 +300,6 @@ export default class SettingsScreen extends React.Component {
                             style={{
                               fontSize: 15,
                               color: "rgba(96,100,109, 1)",
-                              //   textAlign: "center",
                               fontFamily: "abril"
                             }}
                           >
@@ -310,13 +308,12 @@ export default class SettingsScreen extends React.Component {
                         </Body>
                         <Right>
                           <Icon
-                            raised
+                            // raised
                             size={25}
                             name="delete"
                             type="material-icons"
-                            color="black"
+                            color="#1DA1F2"
                             onPress={() => this.deleteGroup(msg.key)}
-                            //onPress={() => nav.navigate("Home")}
                           />
                         </Right>
                       </ListItem>

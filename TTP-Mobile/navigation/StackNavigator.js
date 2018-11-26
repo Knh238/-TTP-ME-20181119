@@ -7,7 +7,7 @@ import HomeScreen from "../screens/HomeScreen";
 import TrendingNearbyScreen from "../screens/TrendingNearby";
 import TweetsNearMeScreen from "../screens/TweetsNearMe";
 import LocationScreen from "../screens/Location";
-//import Profile from "../screens/Profile";
+
 import Login from "../screens/Login";
 import SignUp from "../screens/SignUp";
 import CreateGroup from "../screens/CreateGroup";
@@ -47,19 +47,13 @@ const StackNavigator = createStackNavigator(
       })
     },
     Home: {
-      screen: HomeScreen,
-      // headerRight: null,
-      tabBarVisible: false
+      screen: HomeScreen
     },
     Login: {
       screen: Login
-      // headerRight: null,
-      // appBarVisible: true
     },
     SignUp: {
       screen: SignUp
-      // headerRight: null,
-      // appBarVisible: true
     },
     TrendingNearby: {
       screen: TrendingNearbyScreen
@@ -79,11 +73,6 @@ const StackNavigator = createStackNavigator(
     Settings: {
       screen: SettingsScreen
     }
-    //   Profile: {
-    //     screen: Profile
-    //     // headerRight: null,
-    //     appBarVisible: true
-    //   },
   },
 
   {

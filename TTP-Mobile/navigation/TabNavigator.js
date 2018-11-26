@@ -16,23 +16,42 @@ export default createBottomTabNavigator(
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
-        let iconName;
-        if (routeName === "Home") {
-          iconName = `ios-home${focused ? "" : "-outline"}`;
-        } else if (routeName === "Settings") {
-          iconName = `ios-options${focused ? "" : "-outline"}`;
-        }
+      tabTitle: (
+        <Icon
+          //   reverse
+          size={55}
+          name="twitter-square"
+          type="font-awesome"
+          color="#90CAF9"
+          onPress={() => nav.navigate("Home")}
+        />
+      )
+      // tabBarIcon: ({ focused, horizontal, tintColor }) => {
+      // const { routeName } = navigation.state;
+      // let iconName;
+      // if (routeName === "Home") {
+      //   iconName = `ios-information-circle${focused ? "" : "-outline"}`;
+      // } else if (routeName === "Settings") {
+      //   iconName = `ios-options${focused ? "" : "-outline"}`;
+      // }
 
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
-        return <Ionicons name={"ios-home"} size={20} color={tintColor} />;
-      }
+      // You can return any component that you like here! We usually use an
+      // icon component from react-native-vector-icons
+      //   return (
+      //     <Icon
+      //       //   reverse
+      //       size={55}
+      //       name="twitter-square"
+      //       type="font-awesome"
+      //       color="#90CAF9"
+      //       onPress={() => nav.navigate("Home")}
+      //     />
+      //   );
+      // }
     }),
     tabBarOptions: {
-      activeTintColor: "tomato",
-      inactiveTintColor: "gray"
+      activeTintColor: "#1DA1F2",
+      inactiveTintColor: "#1DA1F2"
     }
   }
 );

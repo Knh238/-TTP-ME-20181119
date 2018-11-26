@@ -32,10 +32,6 @@ export default class LocationScreen extends Component {
     let location = await Location.getCurrentPositionAsync({});
     let lat = JSON.stringify(location.coords.latitude);
     let long = JSON.stringify(location.coords.longitude);
-    // location.long = response.coords.longitude;
-    // location.lat = response.coords.latitude;
-
-    // this.setState({ location: {lat:location.coords.latitude;, long:location.coords.longitude });
     this.setState({ lat });
     this.setState({ long });
   };

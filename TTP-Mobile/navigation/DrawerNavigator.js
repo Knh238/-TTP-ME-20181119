@@ -3,8 +3,8 @@ import { Image, ScrollView } from "react-native";
 import { createDrawerNavigator } from "react-navigation";
 import {
   Container,
-  Header,
   Content,
+  Header,
   Body,
   Button,
   Text,
@@ -22,62 +22,19 @@ import StackNavigator from "./StackNavigator";
 import HomeScreen from "../screens/HomeScreen";
 import firebase from "../firebase";
 import GroupView from "../screens/GroupView";
-// import Login from "../screens/Login";
-const logOut = function() {
-  firebase
-    .auth()
-    .signOut()
-    .then(
-      function() {
-        console.log("Sign out complete.");
-      },
-      function(error) {
-        console.error(error);
-      }
-    );
-};
-
-const LogoutButton = props => {
-  return firebase.auth().currentUser ? (
-    <Footer
-      style={{
-        flexDirection: "column",
-        height: 90
-      }}
-    >
-      <Button
-        full
-        light
-        onPress={() => {
-          logOut();
-          props.navigation.navigate("Login");
-        }}
-        // style={{
-        //   backgroundColor: "white",
-        //   borderWidth: 0,
-        //   borderRadius: 30,
-        //   alignSelf: "center",
-        //   width: "33%",
-        //   marginTop: 10
-        // }}
-      >
-        <Text style={{ fontFamily: "oxygen" }}>Logout</Text>
-        <Icon
-          name="exit-to-app"
-          type="material-icons"
-          color="#2196F3"
-          size={28}
-        />
-      </Button>
-    </Footer>
-  ) : null;
-};
+import axios from "axios";
+import AuthInfo from "../secrets";
+import { Constants, Location, Permissions } from "expo";
 
 class CustomDrawer extends Component {
   constructor() {
     super();
     this.state = {
-      groups: []
+      groups: [],
+      errorMessage: null,
+      long: null,
+      lat: null,
+      woeid: null
     };
   }
 
@@ -96,22 +53,52 @@ class CustomDrawer extends Component {
             let obj = {};
             obj.key = key;
             obj.value = groups[key];
-            // console.log("this groups -------", groups[key], "key is ----", key);
             userGroups.push(obj);
-            //console.log("this user groups ----", userGroups);
           }
-          // console.log("this user groups ----", userGroups);
           self.setState({
             userGroups
           });
         });
       }
     });
+    this._getLocationAsync();
+  }
+  _getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== "granted") {
+      this.setState({
+        errorMessage: "Permission to access location was denied"
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    const lat = JSON.stringify(location.coords.latitude);
+    const long = JSON.stringify(location.coords.longitude);
+    //console.log("location info------", location);
+    this.setState({ lat });
+    this.setState({ long });
+    this.getWOEID();
+  };
+  getWOEID() {
+    const self = this;
+    const lat = this.state.lat;
+    const long = this.state.long;
+    return axios
+      .get(
+        `https://api.twitter.com/1.1/trends/closest.json?lat=${lat}&long=${long}`,
+        {
+          headers: AuthInfo
+        }
+      )
+      .then(function(res) {
+        //console.log("data is--------------------", res.data[0]);
+        self.setState({ woeid: res.data[0] });
+      });
   }
 
   render() {
     const nav = this.props.navigation;
-    console.log("this state in drawer is------", this.state);
+    //console.log("this state in drawer is------", this.state);
     return (
       <Container>
         <Header style={{ height: 80 }}>
@@ -135,7 +122,7 @@ class CustomDrawer extends Component {
         >
           <ScrollView>
             <List>
-              <ListItem
+              {/* <ListItem
                 style={{
                   marginLeft: 0,
                   paddingLeft: 10
@@ -153,13 +140,17 @@ class CustomDrawer extends Component {
                     size={35}
                   />
                 </Right>
-              </ListItem>
+              </ListItem> */}
               <ListItem
                 style={{
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
-                onPress={() => nav.navigate("TrendingNearby")}
+                onPress={() =>
+                  nav.navigate("TrendingNearby", {
+                    woeid: this.state.woeid
+                  })
+                }
               >
                 <Body>
                   <Text style={{ fontFamily: "oxygen" }}>
@@ -180,15 +171,20 @@ class CustomDrawer extends Component {
                   marginLeft: 0,
                   paddingLeft: 10
                 }}
-                onPress={() => nav.navigate("TweetsNearMe")}
+                onPress={() =>
+                  nav.navigate("TweetsNearMe", {
+                    lat: this.state.lat,
+                    long: this.state.long
+                  })
+                }
               >
                 <Body>
                   <Text style={{ fontFamily: "oxygen" }}>Tweets Near Me</Text>
                 </Body>
                 <Right>
                   <Icon
-                    name="near-me"
-                    type="material-icons"
+                    name="location"
+                    type="entypo"
                     color="#2196F3"
                     size={35}
                   />
@@ -220,7 +216,6 @@ class CustomDrawer extends Component {
 
               {this.state.userGroups
                 ? this.state.userGroups.map(group => {
-                    // let hashtag = "#" + group;
                     return (
                       <ListItem
                         key={group.key}
@@ -288,3 +283,44 @@ const DrawerNavigator = createDrawerNavigator(
   }
 );
 export default DrawerNavigator;
+const logOut = function() {
+  firebase
+    .auth()
+    .signOut()
+    .then(
+      function() {
+        console.log("Sign out complete.");
+      },
+      function(error) {
+        console.error(error);
+      }
+    );
+};
+
+const LogoutButton = props => {
+  return firebase.auth().currentUser ? (
+    <Footer
+      style={{
+        flexDirection: "column",
+        height: 90
+      }}
+    >
+      <Button
+        full
+        light
+        onPress={() => {
+          logOut();
+          props.navigation.navigate("Login");
+        }}
+      >
+        <Text style={{ fontFamily: "oxygen" }}>Logout</Text>
+        <Icon
+          name="exit-to-app"
+          type="material-icons"
+          color="#2196F3"
+          size={28}
+        />
+      </Button>
+    </Footer>
+  ) : null;
+};

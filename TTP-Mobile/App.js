@@ -10,10 +10,6 @@ import {
 import { AppLoading, Asset, Font, Icon } from "expo";
 import { createSwitchNavigator } from "react-navigation";
 import DrawerNavigator from "./navigation/DrawerNavigator";
-// import HomeScreen from "./screens/HomeScreen";
-// import TabNavigator from "./navigation/TabNavigator";
-// importStackNavigator from "./navigation/StackNavigator";
-// import Signup from './screens/SignUp';
 
 export default class App extends Component {
   state = {
@@ -60,16 +56,6 @@ export default class App extends Component {
     this.setState({ isLoadingComplete: true });
   };
 }
-
-// export default class App extends React.Component {
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//         <Text>Open up App.js to start working on your app!</Text>
-//       </View>
-//     );
-//   }
-// }
 
 const styles = StyleSheet.create({
   container: {

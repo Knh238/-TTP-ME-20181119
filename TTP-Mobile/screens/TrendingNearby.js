@@ -4,7 +4,6 @@ import {
   Platform,
   ScrollView,
   StyleSheet,
-  // Text,
   TouchableOpacity,
   View
 } from "react-native";
@@ -22,13 +21,11 @@ import {
 } from "native-base";
 import { Button } from "react-native-elements";
 import LottieView from "lottie-react-native";
-// import Icon from "react-native-vector-icons/FontAwesome";
 import { Icon } from "expo";
-
 import { WebBrowser } from "expo";
 import { LinearGradient } from "expo";
 import axios from "axios";
-import Header from "../secrets";
+import AuthInfo from "../secrets";
 
 // static navigationOptions = {
 //   header: null
@@ -37,68 +34,33 @@ import Header from "../secrets";
 export default class TrendingNearbyScreen extends React.Component {
   constructor() {
     super();
-    this.state = { tweets: [] };
+    this.state = { tweets: [], woeid: null };
   }
-
-  //later seperate this out to grab location as a seperate property
-  //and then pre-set trends as an array on state first before handing it
-  //or just [ ] when u pass it to state like {Trends:[data[0]]}
   componentWillMount() {
     const self = this;
+    const woeid = this.props.navigation.state.params.woeid.woeid;
     return axios
-      .get("https://api.twitter.com/1.1/trends/place.json?id=2459115", {
-        headers: Header
+      .get(`https://api.twitter.com/1.1/trends/place.json?id=${woeid}`, {
+        headers: AuthInfo
       })
       .then(function(res) {
-        // console.log("data is", res.data[0].trends);
         self.setState({ tweets: res.data[0].trends });
       });
-    // return axios
-    //   .get(
-    //     "https://api.twitter.com/1.1/search/tweets.json?geocode=40.7268,-73.9910,5mi",
-    //     {
-    //       headers: Header
-    //     }
-    //   )
-    //   .then(function(res) {
-    //     console.log(
-    //       "data is--------------------",
-    //       res.data.statuses[0].user.id_str
-    //     );
-    //     self.setState(res.data.statuses);
-    //   });
-    // https://api.twitter.com/1.1/search/tweets.json
-    // ?q=nasa&result_type=popular
-    // /1.1/search/tweets.json?q=nasa&result_type=popular
-    // specified by ” latitude,longitude,radius “,
-    ///default count is 15
   }
 
   render() {
+    const location = this.props.navigation.state.params.woeid;
     this.state ? console.log("theres state!") : null;
     return (
       <View
         style={{
-          //   flexDirection: "column",
-          //   padding: 20,
           flex: 1,
           justifyContent: "center",
           alignContent: "center"
         }}
       >
-        {/* <ScrollView
-        //   style={{
-        //     flex: 1,
-        //     backgroundColor: "#fff"
-        //   }}
-        //   contentContainerStyle={{
-        //     padding: 10
-        //   }}
-        > */}
         <LinearGradient
           colors={["powderblue", "lightblue", "#90caf9"]}
-          //colors={["powderblue", "lightblue", "#2196F3"]}
-
           fill
           style={{
             position: "absolute",
@@ -112,8 +74,6 @@ export default class TrendingNearbyScreen extends React.Component {
             <View
               style={{
                 alignItems: "center"
-                // marginTop: 10,
-                // marginBottom: 10
               }}
             >
               <Image
@@ -135,15 +95,24 @@ export default class TrendingNearbyScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
+                  color: "white",
+                  textAlign: "center",
+                  fontFamily: "abril",
+                  padding: 10
+                }}
+              >
+                Trending in:
+              </Text>
+              <Text
+                style={{
+                  fontSize: 25,
                   color: "rgba(96,100,109, 1)",
                   textAlign: "center",
                   fontFamily: "abril",
                   padding: 10
                 }}
               >
-                Trending Topics in Your Area
-                {/* or trending near you */}
-                {/* maybe: near --ex location if pass down */}
+                {location.name}, {location.country}
               </Text>
 
               {this.state.tweets
@@ -152,14 +121,6 @@ export default class TrendingNearbyScreen extends React.Component {
                       key={msg.name}
                       style={{ padding: 20, width: "85%", alignSelf: "center" }}
                     >
-                      {/* <Left>
-                        <Thumbnail
-                          source={{
-                            uri: `${msg.user.profile_image_url}`
-                          }}
-                        />
-                      </Left> */}
-                      {/* <Body> */}
                       <Text
                         style={{
                           fontSize: 25,
@@ -180,92 +141,13 @@ export default class TrendingNearbyScreen extends React.Component {
                       >
                         # of tweets about this: {msg.tweet_volume}
                       </Text>
-                      {/* </Body> */}
-                      {/* <Right>
-                        <Text note fontFamily="sedgwick">
-                          {msg.created_at.slice(0, 16)}{" "}
-                        </Text>
-                      </Right> */}
                     </Card>
                   ))
                 : null}
-
-              {/*     
-              {this.state[0]
-                ? this.state.map(topic => (
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        color: "rgba(96,100,109, 1)",
-                        textAlign: "center",
-                        fontFamily: "playfair"
-                      }}
-                    >
-                      {topic.name}
-                    </Text>
-                  ))
-                : null} */}
-
-              {/* <LottieView
-                source={require("../assets/images/twitter_icon.json")}
-                autoPlay
-                loop
-                style={{
-                  alignContent: "center",
-                  position: "relative"
-                }}
-              /> */}
-
-              {/* <TouchableOpacity
-                onPress={this._handleHelpPress}
-                style={{
-                  paddingVertical: 15
-                }}
-              >
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1565C0",
-                    textAlign: "center"
-                    // fontFamily: "playfairBold"
-                  }}
-                >
-                  buzzfeed
-                </Text>
-              </TouchableOpacity> */}
             </View>
           </ScrollView>
         </LinearGradient>
-        {/* </ScrollView> */}
       </View>
     );
   }
 }
-
-// var client = require("../twitterAPI");
-
-// // client.get("favorites/list", function(error, tweets, response) {
-// //   if (error) throw error;
-// //   console.log(tweets); // The favorites.
-// //   console.log(response); // Raw response object.
-// // });
-
-// var stream = client.stream("statuses/filter", { track: "javascript" });
-// stream.on("data", function(event) {
-//   console.log(event && event.text);
-// });
-
-// stream.on("error", function(error) {
-//   throw error;
-// });
-
-// // You can also get the stream in a callback if you prefer.
-// client.stream("statuses/filter", { track: "javascript" }, function(stream) {
-//   stream.on("data", function(event) {
-//     console.log(event && event.text);
-//   });
-
-//   stream.on("error", function(error) {
-//     throw error;
-//   });
-// })

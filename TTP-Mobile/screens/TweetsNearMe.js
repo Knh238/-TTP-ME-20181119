@@ -27,15 +27,15 @@ import { Icon } from "expo";
 import { WebBrowser } from "expo";
 import { LinearGradient } from "expo";
 import axios from "axios";
-import Header from "../secrets";
+import AuthInfo from "../secrets";
 
 // static navigationOptions = {
 //   header: null
 // };
 
 export default class TweetsNearMeScreen extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { tweets: [] };
   }
 
@@ -44,12 +44,13 @@ export default class TweetsNearMeScreen extends React.Component {
   //or just [ ] when u pass it to state like {Trends:[data[0]]}
   componentWillMount() {
     const self = this;
-
+    const lat = this.props.navigation.state.params.lat;
+    const long = this.props.navigation.state.params.long;
     return axios
       .get(
-        "https://api.twitter.com/1.1/search/tweets.json?geocode=40.7268,-73.9910,5mi",
+        `https://api.twitter.com/1.1/search/tweets.json?geocode=${lat},${long},5mi`,
         {
-          headers: Header
+          headers: AuthInfo
         }
       )
       .then(function(res) {
@@ -59,11 +60,6 @@ export default class TweetsNearMeScreen extends React.Component {
         );
         self.setState({ tweets: res.data.statuses });
       });
-    // https://api.twitter.com/1.1/search/tweets.json
-    // ?q=nasa&result_type=popular
-    // /1.1/search/tweets.json?q=nasa&result_type=popular
-    // specified by ” latitude,longitude,radius “,
-    ///default count is 15
   }
 
   //add a force update thing
