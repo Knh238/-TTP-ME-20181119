@@ -24,12 +24,14 @@ import { WebBrowser } from "expo";
 import { LinearGradient } from "expo";
 import axios from "axios";
 import Header from "../secrets";
+import CreateGroup from "./CreateGroup";
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userGroups: [], user: "" };
+    this.state = { userGroups: [], user: "", showAdd: false };
     this.deleteGroup = this.deleteGroup.bind(this);
+    this.showForm = this.showForm.bind(this);
   }
 
   componentWillMount() {
@@ -62,6 +64,11 @@ export default class SettingsScreen extends React.Component {
       }
     });
     nav.navigate("Home");
+  }
+
+  showForm() {
+    const show = this.state.showAdd;
+    this.setState({ showAdd: !show });
   }
 
   render() {
@@ -170,8 +177,9 @@ export default class SettingsScreen extends React.Component {
               </List>
               <Button
                 title="ADD NEW GROUP"
+                textStyle={{ color: "#1DA1F2", fontFamily: "abril" }}
                 raised
-                icon={{ name: "add" }}
+                icon={{ name: "add", color: "#1DA1F2" }}
                 buttonStyle={{
                   padding: 10,
                   marginTop: 20,
@@ -179,10 +187,17 @@ export default class SettingsScreen extends React.Component {
                   borderRadius: 30,
                   alignSelf: "center",
                   width: "70%",
-                  backgroundColor: "#242424"
+                  //backgroundColor: "#242424"
+                  backgroundColor: "white"
                 }}
                 onPress={() => nav.navigate("CreateGroup", { groups })}
+                //onPress={() => this.showForm()}
               />
+              {/* {this.state.showAdd ? (
+                <View>
+                  <CreateGroup />
+                </View>
+              ) : null} */}
             </View>
           </ScrollView>
         </LinearGradient>

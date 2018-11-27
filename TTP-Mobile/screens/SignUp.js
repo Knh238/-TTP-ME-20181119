@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button, FormLabel, FormInput } from "react-native-elements";
-import { View, Keyboard } from "react-native";
+import { View, Keyboard, Image } from "react-native";
 import firebase from "../firebase";
 import { LinearGradient } from "expo";
 
@@ -52,8 +52,6 @@ export default class SignUp extends Component {
     return (
       <View
         style={{
-          //   flexDirection: "column",
-          //   padding: 20,
           flex: 1,
           justifyContent: "center",
           alignContent: "center"
@@ -61,7 +59,6 @@ export default class SignUp extends Component {
       >
         <LinearGradient
           colors={["powderblue", "lightblue", "#90caf9"]}
-          //   colors={["powderblue", "lightblue", "#2196F3"]}
           fill
           style={{
             position: "absolute",
@@ -80,6 +77,14 @@ export default class SignUp extends Component {
               fontFamily: "abril"
             }}
           >
+            <Image
+              source={require("../assets/images/twitter.png")}
+              style={{
+                width: 70,
+                height: 50,
+                alignSelf: "center"
+              }}
+            />
             <FormLabel fontFamily="abril">Name</FormLabel>
             <FormInput
               onChangeText={name => this.setState({ name })}
@@ -102,22 +107,24 @@ export default class SignUp extends Component {
                 width: "100%",
                 height: 45,
                 borderRadius: 5,
-                marginTop: 10
+                marginTop: 10,
+                backgroundColor: "#2196F3"
               }}
               fontFamily="abril"
               onPress={() => this.handleSubmit(nav)}
             />
-            <Button
+            {/* <Button
               title="BACK TO LOGIN"
               buttonStyle={{
                 width: "100%",
                 height: 45,
                 borderRadius: 5,
-                marginTop: 10
+                marginTop: 10,
+                backgroundColor: "#2196F3"
               }}
               fontFamily="abril"
-              // onPress={() => nav.navigate("Login")}
-            />
+              onPress={() => nav.navigate("Login")}
+            /> */}
           </Card>
         </LinearGradient>
       </View>

@@ -46,10 +46,6 @@ export default class TweetsNearMeScreen extends React.Component {
         }
       )
       .then(function(res) {
-        console.log(
-          "data is--------------------",
-          res.data.statuses[0].user.id_str
-        );
         self.setState({ tweets: res.data.statuses });
       });
   }
@@ -106,35 +102,37 @@ export default class TweetsNearMeScreen extends React.Component {
                   fontFamily: "abril"
                 }}
               >
-                Tweets near me
+                Tweets Near Me
               </Text>
-              <Button
-                buttonStyle={{
-                  backgroundColor: "white",
-                  borderWidth: 0,
-                  borderRadius: 30,
-                  alignSelf: "center",
-                  width: "60%",
-                  marginTop: 10
-                }}
-                center
-                icon={{
-                  name: "refresh",
-                  type: "font-awesome",
-                  color: "#1DA1F2"
-                }}
-                title="check for new posts"
-                textStyle={{ fontFamily: "abril", color: "rgb(66, 194, 244)" }}
-                onPress={() => this.componentWillMount()}
-                //p.s. i know this is the wrong way to do this.
-                //I know there should be a component willupdate/etc
-                //that will send a modified request to the api
-                //that would look for posts since_id:
-                //which would mean i'd need to store the id of the last item in the array
-                //the response array that is currently on state
-                //and place that on a diff property in state
-                //then if the number of in a place on state and keep updating it
-              />
+              <View style={{ marginBottom: 20 }}>
+                <Button
+                  buttonStyle={{
+                    backgroundColor: "rgb(66, 194, 244)",
+                    borderWidth: 0,
+                    borderRadius: 30,
+                    alignSelf: "center",
+                    width: "60%",
+                    marginTop: 10
+                  }}
+                  center
+                  icon={{
+                    name: "refresh",
+                    type: "font-awesome",
+                    color: "#1DA1F2"
+                  }}
+                  title="check for new posts"
+                  textStyle={{ fontFamily: "abril", color: "white" }}
+                  onPress={() => this.componentWillMount()}
+                  //p.s. i know this is the wrong way to do this.
+                  //I know there should be a component willupdate/etc
+                  //that will send a modified request to the api
+                  //that would look for posts since_id:
+                  //which would mean i'd need to store the id of the last item in the array
+                  //the response array that is currently on state
+                  //and place that on a diff property in state
+                  //then if the number of in a place on state and keep updating it
+                />
+              </View>
               <List>
                 {this.state.tweets
                   ? this.state.tweets.map(msg => (

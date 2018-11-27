@@ -109,7 +109,30 @@ export default class TrendingNearbyScreen extends React.Component {
               >
                 {location.name}, {location.country}
               </Text>
-
+              <View style={{ marginBottom: 20 }}>
+                <Button
+                  buttonStyle={{
+                    backgroundColor: "rgb(66, 194, 244)",
+                    borderWidth: 0,
+                    borderRadius: 30,
+                    alignSelf: "center",
+                    width: "60%",
+                    marginTop: 10
+                  }}
+                  center
+                  icon={{
+                    name: "refresh",
+                    type: "font-awesome",
+                    color: "#1DA1F2"
+                  }}
+                  title="check for new posts"
+                  textStyle={{
+                    fontFamily: "abril",
+                    color: "white"
+                  }}
+                  onPress={() => this.componentWillMount()}
+                />
+              </View>
               {this.state.tweets
                 ? this.state.tweets.map(msg => (
                     <Card

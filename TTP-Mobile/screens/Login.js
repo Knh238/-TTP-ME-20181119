@@ -46,8 +46,6 @@ export default class Login extends Component {
     return (
       <View
         style={{
-          //   flexDirection: "column",
-          //   padding: 20,
           flex: 1,
           justifyContent: "center",
           alignContent: "center"
@@ -55,7 +53,6 @@ export default class Login extends Component {
       >
         <LinearGradient
           colors={["powderblue", "lightblue", "#90caf9"]}
-          //   colors={["powderblue", "lightblue", "#2196F3"]}
           fill
           style={{
             position: "absolute",
@@ -74,7 +71,9 @@ export default class Login extends Component {
                 alignSelf: "center"
               }}
             />
-            <FormLabel fontFamily="abril">E-mail</FormLabel>
+            <FormLabel fontFamily="abril" textColor="black">
+              E-mail
+            </FormLabel>
             <FormInput
               onChangeText={email => this.setState({ email })}
               inputStyle={{ width: undefined }}
@@ -91,8 +90,9 @@ export default class Login extends Component {
               buttonStyle={{
                 width: "100%",
                 height: 45,
+                borderRadius: 5,
                 marginTop: 10,
-                backgroundColor: "#242424"
+                backgroundColor: "#2196F3"
               }}
               onPress={() => this.loginSubmit(nav)}
             />
