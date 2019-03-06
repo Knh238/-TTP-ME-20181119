@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Image,
   Platform,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View
-} from "react-native";
+} from 'react-native';
 import {
   List,
   ListItem,
@@ -16,13 +16,13 @@ import {
   Thumbnail,
   Card,
   Text
-} from "native-base";
-import { Button, Icon } from "react-native-elements";
-import LottieView from "lottie-react-native";
-import { WebBrowser } from "expo";
-import { LinearGradient } from "expo";
-import axios from "axios";
-import AuthInfo from "../secrets";
+} from 'native-base';
+import { Button, Icon } from 'react-native-elements';
+import LottieView from 'lottie-react-native';
+import { WebBrowser } from 'expo';
+import { LinearGradient } from 'expo';
+import axios from 'axios';
+import AuthInfo from '../secrets';
 
 export default class AuthorInfo extends React.Component {
   constructor(props) {
@@ -33,7 +33,7 @@ export default class AuthorInfo extends React.Component {
   componentWillMount() {
     const self = this;
     const userScreenName = this.props.navigation.state.params.user.screen_name;
-    console.log("user screen name", userScreenName);
+
     return axios
       .get(
         `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${userScreenName}&count=10&trim_user`,
@@ -48,26 +48,26 @@ export default class AuthorInfo extends React.Component {
 
   render() {
     const nav = this.props.navigation;
-    this.state ? console.log("theres state!") : null;
+
     const user = this.props.navigation.state.params.user;
 
     return (
       <View
         style={{
           flex: 1,
-          justifyContent: "center",
-          alignContent: "center"
+          justifyContent: 'center',
+          alignContent: 'center'
         }}
       >
         <LinearGradient
-          colors={["powderblue", "lightblue", "#90caf9"]}
+          colors={['powderblue', 'lightblue', '#90caf9']}
           fill
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             right: 0,
             bottom: 0,
-            height: "100%"
+            height: '100%'
           }}
         >
           <ScrollView>
@@ -75,28 +75,28 @@ export default class AuthorInfo extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "white",
-                  textAlign: "center",
-                  fontFamily: "abril"
+                  color: 'white',
+                  textAlign: 'center',
+                  fontFamily: 'abril'
                 }}
               >
                 About the author
               </Text>
               <View
                 style={{
-                  alignItems: "center"
+                  alignItems: 'center'
                 }}
               >
                 <Image
                   source={
                     __DEV__
-                      ? require("../assets/images/twitter.png")
-                      : require("../assets/images/twitter.png")
+                      ? require('../assets/images/twitter.png')
+                      : require('../assets/images/twitter.png')
                   }
                   style={{
                     width: 80,
                     height: 60,
-                    resizeMode: "contain",
+                    resizeMode: 'contain',
                     marginTop: 3,
                     marginLeft: -10
                   }}
@@ -106,8 +106,8 @@ export default class AuthorInfo extends React.Component {
                 style={{
                   fontSize: 20,
 
-                  textAlign: "center",
-                  fontFamily: "abril"
+                  textAlign: 'center',
+                  fontFamily: 'abril'
                 }}
               >
                 {user.name}@{user.screen_name}
@@ -116,7 +116,7 @@ export default class AuthorInfo extends React.Component {
               <Text
                 note
                 fontFamily="sedgwick"
-                style={{ alignSelf: "center", color: "white" }}
+                style={{ alignSelf: 'center', color: 'white' }}
               >
                 {user.location}
               </Text>
@@ -125,13 +125,13 @@ export default class AuthorInfo extends React.Component {
                   paddingTop: 10,
                   paddingBottom: 10,
                   fontSize: 15,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "oxygen"
+                  color: 'rgba(96,100,109, 1)',
+                  textAlign: 'center',
+                  fontFamily: 'oxygen'
                 }}
               >
                 followers: {user.followers_count}
-                {"\n"}
+                {'\n'}
                 following: {user.friends_count}
               </Text>
 
@@ -140,7 +140,7 @@ export default class AuthorInfo extends React.Component {
                     <Card
                       avatar
                       key={msg.id}
-                      style={{ padding: 10, width: "90%", alignSelf: "center" }}
+                      style={{ padding: 10, width: '90%', alignSelf: 'center' }}
                     >
                       <Left>
                         <Thumbnail
@@ -152,9 +152,9 @@ export default class AuthorInfo extends React.Component {
                           note
                           style={{
                             fontSize: 10,
-                            color: "rgba(96,100,109, 1)",
-                            textAlign: "center",
-                            fontFamily: "abril"
+                            color: 'rgba(96,100,109, 1)',
+                            textAlign: 'center',
+                            fontFamily: 'abril'
                           }}
                         >
                           {msg.created_at.slice(0, 16)}
@@ -168,9 +168,9 @@ export default class AuthorInfo extends React.Component {
                               paddingTop: 10,
                               paddingBottom: 10,
                               fontSize: 15,
-                              color: "rgba(96,100,109, 1)",
-                              textAlign: "center",
-                              fontFamily: "oxygen"
+                              color: 'rgba(96,100,109, 1)',
+                              textAlign: 'center',
+                              fontFamily: 'oxygen'
                             }}
                           >
                             {msg.text}

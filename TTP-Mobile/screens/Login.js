@@ -1,18 +1,15 @@
-import React, { Component } from "react";
-import firebase from "../firebase";
-import { View, Keyboard, Image } from "react-native";
+import React, { Component } from 'react';
+import firebase from '../firebase';
+import { View, Keyboard, Image, Alert } from 'react-native';
 import {
   Card,
   Button,
   FormLabel,
   FormInput,
   Icon
-} from "react-native-elements";
-// import FormControl from "@material-ui/core/FormControl";
-// import FormGroup from "@material-ui/core/FormGroup";
-// import Input from "@material-ui/core/Input";
-// import InputLabel from "@material-ui/core/InputLabel";
-import { LinearGradient } from "expo";
+} from 'react-native-elements';
+
+import { LinearGradient } from 'expo';
 
 export default class Login extends Component {
   constructor() {
@@ -24,20 +21,20 @@ export default class Login extends Component {
   loginSubmit(nav) {
     const email = this.state.email.toLowerCase();
     const pass = this.state.pass;
-    //const pass = this.state.pass.toLowerCase();
+
     if (email && pass) {
       firebase
         .auth()
         .signInWithEmailAndPassword(email, pass)
         .then(function(user) {
-          nav.navigate("Home");
+          nav.navigate('Home');
         })
         .catch(function(error) {
           console.log(error.message);
-          //alert(error);
+          Alert.alert(error);
         });
     }
-    this.setState = { email: "", pass: "" };
+    this.setState = { email: '', pass: '' };
     Keyboard.dismiss();
   }
 
@@ -47,28 +44,28 @@ export default class Login extends Component {
       <View
         style={{
           flex: 1,
-          justifyContent: "center",
-          alignContent: "center"
+          justifyContent: 'center',
+          alignContent: 'center'
         }}
       >
         <LinearGradient
-          colors={["powderblue", "lightblue", "#90caf9"]}
+          colors={['powderblue', 'lightblue', '#90caf9']}
           fill
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             right: 0,
             bottom: 0,
-            height: "100%"
+            height: '100%'
           }}
         >
           <Card title="Login for the love" fontFamily="abril">
             <Image
-              source={require("../assets/images/twitter.png")}
+              source={require('../assets/images/twitter.png')}
               style={{
                 width: 70,
                 height: 50,
-                alignSelf: "center"
+                alignSelf: 'center'
               }}
             />
             <FormLabel fontFamily="abril" textColor="black">
@@ -88,34 +85,28 @@ export default class Login extends Component {
               title="LOGIN"
               fontFamily="abril"
               buttonStyle={{
-                width: "100%",
+                width: '100%',
                 height: 45,
                 borderRadius: 5,
                 marginTop: 10,
-                backgroundColor: "#2196F3"
+                backgroundColor: '#2196F3'
               }}
               onPress={() => this.loginSubmit(nav)}
             />
             <Button
               title="HOME"
               fontFamily="abril"
-              // buttonStyle={{
-              //   width: "100%",
-              //   height: 45,
-              //   paddingTop: 10,
-              //   backgroundColor: "#242424"
-              // }}
               buttonStyle={{
-                backgroundColor: "rgb(66, 194, 244)",
+                backgroundColor: 'rgb(66, 194, 244)',
                 borderWidth: 0,
                 borderRadius: 30,
-                alignSelf: "center",
+                alignSelf: 'center',
                 marginTop: 10,
                 marginBottom: 10,
-                width: "33%"
+                width: '33%'
               }}
-              icon={{ name: "home", type: "font-awesome" }}
-              onPress={() => nav.navigate("Home")}
+              icon={{ name: 'home', type: 'font-awesome' }}
+              onPress={() => nav.navigate('Home')}
             />
           </Card>
         </LinearGradient>

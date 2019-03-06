@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Platform, Text, View, StyleSheet } from "react-native";
-import { Constants, Location, Permissions } from "expo";
+import React, { Component } from 'react';
+import { Platform, Text, View, StyleSheet } from 'react-native';
+import { Constants, Location, Permissions } from 'expo';
 
 export default class LocationScreen extends Component {
   state = {
@@ -11,10 +11,10 @@ export default class LocationScreen extends Component {
   };
 
   componentWillMount() {
-    if (Platform.OS === "android" && !Constants.isDevice) {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
       this.setState({
         errorMessage:
-          "Oops, this will not work on Sketch in an Android emulator. Try it on your device!"
+          'Oops, this will not work on Sketch in an Android emulator. Try it on your device!'
       });
     } else {
       this._getLocationAsync();
@@ -23,9 +23,9 @@ export default class LocationScreen extends Component {
 
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== "granted") {
+    if (status !== 'granted') {
       this.setState({
-        errorMessage: "Permission to access location was denied"
+        errorMessage: 'Permission to access location was denied'
       });
     }
 
@@ -37,17 +37,13 @@ export default class LocationScreen extends Component {
   };
 
   render() {
-    let text = "Waiting..";
+    let text = 'Waiting..';
     if (this.state.errorMessage) {
       text = this.state.errorMessage;
     } else if (this.state.lat) {
       text = `${this.state.lat}, ${this.state.long}`;
-      //   JSON.stringify(
-      //     this.state.location.coords.latitude,
-      //     this.state.location.coords.latitude
-      //   );
     }
-    //if location cant be found. or no permission given. base it on ip addrss
+
     return (
       <View style={styles.container}>
         <Text style={styles.paragraph}> My current location is:</Text>
@@ -60,26 +56,14 @@ export default class LocationScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: "#ecf0f1"
+    backgroundColor: '#ecf0f1'
   },
   paragraph: {
     margin: 24,
     fontSize: 18,
-    textAlign: "center"
+    textAlign: 'center'
   }
 });
-
-//https://api.twitter.com/1.1/trends/closest.json
-//gets only one obj
-
-///https://api.twitter.com/1.1/trends/place.json
-
-//note: this should eventaully be loaded with app or home page. so u can pass it down as props. then call it elsewhere.
-// https://api.twitter.com/1.1/search/tweets.json
-// ?q=nasa&result_type=popular
-// /1.1/search/tweets.json?q=nasa&result_type=popular
-// specified by ” latitude,longitude,radius “,
-// ///default count is 15

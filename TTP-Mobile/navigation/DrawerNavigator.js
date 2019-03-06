@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Image, ScrollView } from "react-native";
-import { createDrawerNavigator } from "react-navigation";
+import React, { Component } from 'react';
+import { Image, ScrollView } from 'react-native';
+import { createDrawerNavigator } from 'react-navigation';
 import {
   Container,
   Content,
@@ -16,16 +16,16 @@ import {
   Right,
   Switch,
   Badge
-} from "native-base";
-import { Avatar, Divider, Icon } from "react-native-elements";
-import StackNavigator from "./StackNavigator";
-import HomeScreen from "../screens/HomeScreen";
-import firebase from "../firebase";
-import GroupView from "../screens/GroupView";
-import axios from "axios";
-import AuthInfo from "../secrets";
-import ipKey from "../secretsStack";
-import { Constants, Location, Permissions } from "expo";
+} from 'native-base';
+import { Avatar, Divider, Icon } from 'react-native-elements';
+import StackNavigator from './StackNavigator';
+import HomeScreen from '../screens/HomeScreen';
+import firebase from '../firebase';
+import GroupView from '../screens/GroupView';
+import axios from 'axios';
+import AuthInfo from '../secrets';
+import ipKey from '../secretsStack';
+import { Constants, Location, Permissions } from 'expo';
 
 class CustomDrawer extends Component {
   constructor() {
@@ -47,7 +47,7 @@ class CustomDrawer extends Component {
       if (user) {
         const currUser = user.uid;
         var ref = firebase.database().ref(`users/${currUser}/groups`);
-        ref.on("value", function(snapshot) {
+        ref.on('value', function(snapshot) {
           let groups = snapshot.val();
           let userGroups = [];
           for (let key in groups) {
@@ -67,17 +67,14 @@ class CustomDrawer extends Component {
   }
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== "granted") {
-      // this.setState({
-      //   errorMessage: "Permission to access location was denied"
-      // });
+    if (status !== 'granted') {
       this.getIP();
     }
 
     let location = await Location.getCurrentPositionAsync({});
     const lat = JSON.stringify(location.coords.latitude);
     const long = JSON.stringify(location.coords.longitude);
-    //console.log("location info------", location);
+
     this.setState({ lat });
     this.setState({ long });
     this.getWOEID();
@@ -120,15 +117,15 @@ class CustomDrawer extends Component {
               name="twitter-square"
               type="font-awesome"
               color="#90CAF9"
-              onPress={() => nav.navigate("Home")}
+              onPress={() => nav.navigate('Home')}
             />
           </Body>
         </Header>
         <Content
           contentContainerStyle={{
             flex: 1,
-            flexDirection: "column",
-            justifyContent: "space-between"
+            flexDirection: 'column',
+            justifyContent: 'space-between'
           }}
         >
           <ScrollView>
@@ -139,13 +136,13 @@ class CustomDrawer extends Component {
                   paddingLeft: 10
                 }}
                 onPress={() =>
-                  nav.navigate("TrendingNearby", {
+                  nav.navigate('TrendingNearby', {
                     woeid: this.state.woeid
                   })
                 }
               >
                 <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>
+                  <Text style={{ fontFamily: 'oxygen' }}>
                     Trending in my area
                   </Text>
                 </Body>
@@ -164,14 +161,14 @@ class CustomDrawer extends Component {
                   paddingLeft: 10
                 }}
                 onPress={() =>
-                  nav.navigate("TweetsNearMe", {
+                  nav.navigate('TweetsNearMe', {
                     lat: this.state.lat,
                     long: this.state.long
                   })
                 }
               >
                 <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>Tweets Near Me</Text>
+                  <Text style={{ fontFamily: 'oxygen' }}>Tweets Near Me</Text>
                 </Body>
                 <Right>
                   <Icon
@@ -188,13 +185,13 @@ class CustomDrawer extends Component {
                   paddingLeft: 10
                 }}
                 onPress={() =>
-                  nav.navigate("Settings", {
+                  nav.navigate('Settings', {
                     userGroups: this.state.userGroups
                   })
                 }
               >
                 <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>My Groups</Text>
+                  <Text style={{ fontFamily: 'oxygen' }}>My Groups</Text>
                 </Body>
                 <Right>
                   <Icon
@@ -220,7 +217,7 @@ class CustomDrawer extends Component {
                           flex: 1
                         }}
                         onPress={() =>
-                          nav.navigate("GroupView", {
+                          nav.navigate('GroupView', {
                             group: group.value
                           })
                         }
@@ -231,7 +228,7 @@ class CustomDrawer extends Component {
                           color="#2196F3"
                           size={25}
                         />
-                        <Text style={{ fontFamily: "oxygen" }}>
+                        <Text style={{ fontFamily: 'oxygen' }}>
                           {group.value}
                         </Text>
                       </ListItem>
@@ -241,7 +238,7 @@ class CustomDrawer extends Component {
 
               <ListItem
                 onPress={() =>
-                  nav.navigate("CreateGroup", { groups: this.state.groups })
+                  nav.navigate('CreateGroup', { groups: this.state.groups })
                 }
               >
                 <Icon
@@ -252,7 +249,7 @@ class CustomDrawer extends Component {
                 />
 
                 <Body>
-                  <Text style={{ fontFamily: "oxygen" }}>Add new group </Text>
+                  <Text style={{ fontFamily: 'oxygen' }}>Add new group </Text>
                 </Body>
               </ListItem>
             </List>
@@ -269,8 +266,8 @@ const DrawerNavigator = createDrawerNavigator(
     GroupView: GroupView
   },
   {
-    initialRouteName: "Home",
-    drawerPosition: "left",
+    initialRouteName: 'Home',
+    drawerPosition: 'left',
     contentComponent: CustomDrawer
   }
 );
@@ -281,7 +278,7 @@ const logOut = function() {
     .signOut()
     .then(
       function() {
-        console.log("Sign out complete.");
+        console.log('Sign out complete.');
       },
       function(error) {
         console.error(error);
@@ -293,7 +290,7 @@ const LogoutButton = props => {
   return firebase.auth().currentUser ? (
     <Footer
       style={{
-        flexDirection: "column",
+        flexDirection: 'column',
         height: 90
       }}
     >
@@ -302,10 +299,10 @@ const LogoutButton = props => {
         light
         onPress={() => {
           logOut();
-          props.navigation.navigate("Login");
+          props.navigation.navigate('Login');
         }}
       >
-        <Text style={{ fontFamily: "oxygen" }}>Logout</Text>
+        <Text style={{ fontFamily: 'oxygen' }}>Logout</Text>
         <Icon
           name="exit-to-app"
           type="material-icons"

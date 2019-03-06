@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Image,
   Platform,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View
-} from "react-native";
+} from 'react-native';
 import {
   List,
   ListItem,
@@ -17,14 +17,14 @@ import {
   Thumbnail,
   Body,
   Text
-} from "native-base";
-import { Button } from "react-native-elements";
-import LottieView from "lottie-react-native";
-import { Icon } from "expo";
-import { WebBrowser } from "expo";
-import { LinearGradient } from "expo";
-import axios from "axios";
-import AuthInfo from "../secrets";
+} from 'native-base';
+import { Button } from 'react-native-elements';
+import LottieView from 'lottie-react-native';
+import { Icon } from 'expo';
+import { WebBrowser } from 'expo';
+import { LinearGradient } from 'expo';
+import axios from 'axios';
+import AuthInfo from '../secrets';
 
 export default class TrendingNearbyScreen extends React.Component {
   constructor() {
@@ -45,42 +45,43 @@ export default class TrendingNearbyScreen extends React.Component {
 
   render() {
     const location = this.props.navigation.state.params.woeid;
-    this.state ? console.log("theres state!") : null;
+
+    this.state ? console.log('theres state!') : null;
     return (
       <View
         style={{
           flex: 1,
-          justifyContent: "center",
-          alignContent: "center"
+          justifyContent: 'center',
+          alignContent: 'center'
         }}
       >
         <LinearGradient
-          colors={["powderblue", "lightblue", "#90caf9"]}
+          colors={['powderblue', 'lightblue', '#90caf9']}
           fill
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             right: 0,
             bottom: 0,
-            height: "100%"
+            height: '100%'
           }}
         >
           <ScrollView>
             <View
               style={{
-                alignItems: "center"
+                alignItems: 'center'
               }}
             >
               <Image
                 source={
                   __DEV__
-                    ? require("../assets/images/twitter.png")
-                    : require("../assets/images/twitter.png")
+                    ? require('../assets/images/twitter.png')
+                    : require('../assets/images/twitter.png')
                 }
                 style={{
                   width: 80,
                   height: 60,
-                  resizeMode: "contain",
+                  resizeMode: 'contain',
                   marginTop: 3,
                   marginLeft: -10
                 }}
@@ -90,9 +91,9 @@ export default class TrendingNearbyScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "white",
-                  textAlign: "center",
-                  fontFamily: "abril",
+                  color: 'white',
+                  textAlign: 'center',
+                  fontFamily: 'abril',
                   padding: 10
                 }}
               >
@@ -101,9 +102,9 @@ export default class TrendingNearbyScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 25,
-                  color: "rgba(96,100,109, 1)",
-                  textAlign: "center",
-                  fontFamily: "abril",
+                  color: 'rgba(96,100,109, 1)',
+                  textAlign: 'center',
+                  fontFamily: 'abril',
                   padding: 10
                 }}
               >
@@ -112,23 +113,23 @@ export default class TrendingNearbyScreen extends React.Component {
               <View style={{ marginBottom: 20 }}>
                 <Button
                   buttonStyle={{
-                    backgroundColor: "rgb(66, 194, 244)",
+                    backgroundColor: 'rgb(66, 194, 244)',
                     borderWidth: 0,
                     borderRadius: 30,
-                    alignSelf: "center",
-                    width: "60%",
+                    alignSelf: 'center',
+                    width: '60%',
                     marginTop: 10
                   }}
                   center
                   icon={{
-                    name: "refresh",
-                    type: "font-awesome",
-                    color: "#1DA1F2"
+                    name: 'refresh',
+                    type: 'font-awesome',
+                    color: '#1DA1F2'
                   }}
                   title="check for new posts"
                   textStyle={{
-                    fontFamily: "abril",
-                    color: "white"
+                    fontFamily: 'abril',
+                    color: 'white'
                   }}
                   onPress={() => this.componentWillMount()}
                 />
@@ -137,14 +138,14 @@ export default class TrendingNearbyScreen extends React.Component {
                 ? this.state.tweets.map(msg => (
                     <Card
                       key={msg.name}
-                      style={{ padding: 20, width: "85%", alignSelf: "center" }}
+                      style={{ padding: 20, width: '85%', alignSelf: 'center' }}
                     >
                       <Text
                         style={{
                           fontSize: 25,
-                          color: "rgba(96,100,109, 1)",
-                          textAlign: "center",
-                          fontFamily: "abril"
+                          color: 'rgba(96,100,109, 1)',
+                          textAlign: 'center',
+                          fontFamily: 'abril'
                         }}
                       >
                         {msg.name}
@@ -152,9 +153,9 @@ export default class TrendingNearbyScreen extends React.Component {
                       <Text
                         style={{
                           fontSize: 15,
-                          color: "rgba(96,100,109, 1)",
-                          textAlign: "center",
-                          fontFamily: "oxygen"
+                          color: 'rgba(96,100,109, 1)',
+                          textAlign: 'center',
+                          fontFamily: 'oxygen'
                         }}
                       >
                         # of tweets about this: {msg.tweet_volume}

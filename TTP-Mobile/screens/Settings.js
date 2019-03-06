@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Image,
   Platform,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View
-} from "react-native";
+} from 'react-native';
 
 import {
   List,
@@ -16,20 +16,20 @@ import {
   Right,
   Thumbnail,
   Text
-} from "native-base";
-import { Button, Icon } from "react-native-elements";
-import LottieView from "lottie-react-native";
-import firebase from "../firebase";
-import { WebBrowser } from "expo";
-import { LinearGradient } from "expo";
-import axios from "axios";
-import Header from "../secrets";
-import CreateGroup from "./CreateGroup";
+} from 'native-base';
+import { Button, Icon } from 'react-native-elements';
+import LottieView from 'lottie-react-native';
+import firebase from '../firebase';
+import { WebBrowser } from 'expo';
+import { LinearGradient } from 'expo';
+import axios from 'axios';
+import Header from '../secrets';
+import CreateGroup from './CreateGroup';
 
 export default class SettingsScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { userGroups: [], user: "", showAdd: false };
+    this.state = { userGroups: [], user: '', showAdd: false };
     this.deleteGroup = this.deleteGroup.bind(this);
     this.showForm = this.showForm.bind(this);
   }
@@ -38,8 +38,8 @@ export default class SettingsScreen extends React.Component {
     const self = this;
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        const ref = firebase.database().ref("users/");
-        ref.on("value", function(snapshot) {
+        const ref = firebase.database().ref('users/');
+        ref.on('value', function(snapshot) {
           const users = snapshot.val();
           for (var key in users) {
             if (key === user.uid) {
@@ -63,7 +63,7 @@ export default class SettingsScreen extends React.Component {
           .remove();
       }
     });
-    nav.navigate("Home");
+    nav.navigate('Home');
   }
 
   showForm() {
@@ -72,7 +72,7 @@ export default class SettingsScreen extends React.Component {
   }
 
   render() {
-    this.state ? console.log("theres state!") : null;
+    this.state ? console.log('theres state!') : null;
     const nav = this.props.navigation;
     const groups = this.props.navigation.state.params.userGroups;
     const displayName = this.state.user;
@@ -80,37 +80,37 @@ export default class SettingsScreen extends React.Component {
       <View
         style={{
           flex: 1,
-          justifyContent: "center",
-          alignContent: "center"
+          justifyContent: 'center',
+          alignContent: 'center'
         }}
       >
         <LinearGradient
-          colors={["powderblue", "lightblue", "#90caf9"]}
+          colors={['powderblue', 'lightblue', '#90caf9']}
           fill
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             right: 0,
             bottom: 0,
-            height: "100%"
+            height: '100%'
           }}
         >
           <ScrollView>
             <View
               style={{
-                alignItems: "center"
+                alignItems: 'center'
               }}
             >
               <Image
                 source={
                   __DEV__
-                    ? require("../assets/images/twitter.png")
-                    : require("../assets/images/twitter.png")
+                    ? require('../assets/images/twitter.png')
+                    : require('../assets/images/twitter.png')
                 }
                 style={{
                   width: 80,
                   height: 60,
-                  resizeMode: "contain",
+                  resizeMode: 'contain',
                   marginTop: 3,
                   marginLeft: -10
                 }}
@@ -120,9 +120,9 @@ export default class SettingsScreen extends React.Component {
               <Text
                 style={{
                   fontSize: 35,
-                  color: "white",
-                  textAlign: "center",
-                  fontFamily: "abril"
+                  color: 'white',
+                  textAlign: 'center',
+                  fontFamily: 'abril'
                 }}
               >
                 {displayName}'s
@@ -132,31 +132,31 @@ export default class SettingsScreen extends React.Component {
                 style={{
                   fontSize: 25,
                   padding: 10,
-                  color: "white",
-                  textAlign: "center",
-                  fontFamily: "abril"
+                  color: 'white',
+                  textAlign: 'center',
+                  fontFamily: 'abril'
                 }}
               >
                 # groups
               </Text>
               <List
                 style={{
-                  width: "95%",
-                  alignSelf: "center"
+                  width: '95%',
+                  alignSelf: 'center'
                 }}
               >
                 {groups
                   ? groups.map(msg => (
                       <ListItem
-                        style={{ backgroundColor: "white" }}
+                        style={{ backgroundColor: 'white' }}
                         key={msg.key}
                       >
                         <Body>
                           <Text
                             style={{
                               fontSize: 15,
-                              color: "rgba(96,100,109, 1)",
-                              fontFamily: "abril"
+                              color: 'rgba(96,100,109, 1)',
+                              fontFamily: 'abril'
                             }}
                           >
                             {msg.value}
@@ -177,27 +177,21 @@ export default class SettingsScreen extends React.Component {
               </List>
               <Button
                 title="ADD NEW GROUP"
-                textStyle={{ color: "#1DA1F2", fontFamily: "abril" }}
+                textStyle={{ color: '#1DA1F2', fontFamily: 'abril' }}
                 raised
-                icon={{ name: "add", color: "#1DA1F2" }}
+                icon={{ name: 'add', color: '#1DA1F2' }}
                 buttonStyle={{
                   padding: 10,
                   marginTop: 20,
                   borderWidth: 0,
                   borderRadius: 30,
-                  alignSelf: "center",
-                  width: "70%",
-                  //backgroundColor: "#242424"
-                  backgroundColor: "white"
+                  alignSelf: 'center',
+                  width: '70%',
+
+                  backgroundColor: 'white'
                 }}
-                onPress={() => nav.navigate("CreateGroup", { groups })}
-                //onPress={() => this.showForm()}
+                onPress={() => nav.navigate('CreateGroup', { groups })}
               />
-              {/* {this.state.showAdd ? (
-                <View>
-                  <CreateGroup />
-                </View>
-              ) : null} */}
             </View>
           </ScrollView>
         </LinearGradient>
