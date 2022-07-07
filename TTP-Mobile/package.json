@@ -13,7 +13,7 @@
     "expo": "^31.0.2",
     "firebase": "^5.5.9",
     "lottie-react-native": "^2.5.10",
-    "moment": "^2.22.2",
+    "moment": "^2.29.4",
     "native-base": "^2.12.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
